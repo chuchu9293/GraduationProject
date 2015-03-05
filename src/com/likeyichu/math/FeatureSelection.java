@@ -20,7 +20,7 @@ public class FeatureSelection {
 	 * A与B不可能同时为0，但C与D可以同时为0，处理方法为此时返回0
 	 */
 	public void chiSquaretest() {
-		DocStatistics.getStatistics();
+		
 		for (String str : DocStatistics.totalTermSet){
 			Term term=new Term(str);
 			calcTermInfo(term);

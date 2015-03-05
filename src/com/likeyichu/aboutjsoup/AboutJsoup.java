@@ -9,26 +9,6 @@ import org.jsoup.nodes.Document;
 
 public class AboutJsoup {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Document doc = null;
-		try {
-			doc = Jsoup
-					.connect(
-							"http://blog.csdn.net/chuchus/article/details/23205283").userAgent("Mozilla")
-					.get();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println(doc.title());
-		String text=doc.text();
-		String [] texts=text.split("。|\\.");//以中文句号或英文句号作为分割
-		for (String string : texts) {
-			System.out.println(string);
-		}
-	}
-
 	public static boolean isChineseChar(String str) {
 		boolean temp = false;
 		Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
@@ -37,5 +17,16 @@ public class AboutJsoup {
 			temp = true;
 		}
 		return temp;
+	}
+
+	public static String getText(String url) throws IOException {
+		Document doc = Jsoup.connect(url).userAgent("Mozilla").get();
+		System.out.println(doc.title());
+		String text = doc.text();
+//		String[] texts = text.split("。|\\.");// 以中文句号或英文句号作为分割
+//		for (String string : texts) {
+//			System.out.println(string);
+//		}
+		return text;
 	}
 }

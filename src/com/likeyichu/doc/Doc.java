@@ -1,5 +1,6 @@
 package com.likeyichu.doc;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -8,6 +9,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import com.likeyichu.aboutikanalyzer.AboutIKAnalyzer;
+import com.likeyichu.aboutjsoup.AboutJsoup;
 
 /**代表着网页中得到的正文文本*/
 public class Doc {
@@ -26,24 +30,9 @@ public class Doc {
 	/**特征向量*/
 	public List<Double> featureVectorList=new ArrayList<Double>();
 	
-	public static List<Doc> generateDocs(){
-		List<Doc> docList=new ArrayList<Doc> ();
-		Doc doc1=new Doc();
-		doc1.text="二叉树可以分为平衡二叉树与非平衡二叉树";
-		doc1.termList.add("二叉树");doc1.termList.add("可以");
-		doc1.termList.add("平衡");doc1.termList.add("平衡");
-		doc1.termSet.addAll(doc1.termList);
-		doc1.isRelative=true;
-		
-		Doc doc2=new Doc();
-		doc2.text="窗外的麻雀，在电线杆上多嘴";
-		doc2.termList.add("窗外");doc2.termList.add("麻雀");
-		doc2.termList.add("电线杆");doc2.termList.add("多嘴");
-		doc2.termSet.addAll(doc2.termList);
-		doc2.isRelative=false;
-		
-		docList.add(doc1); docList.add(doc2);
-		return docList;
+	public static List<Doc> generateDocListFromLocal(){
+		//TODO
+		return null;
 	}
 	public static List<Doc> generateDocsTest(){
 		List<Doc> docList=new ArrayList<Doc> ();
@@ -64,6 +53,24 @@ public class Doc {
 		
 		docList.add(doc1); docList.add(doc2);
 		return docList;
+	}
+	public static List<Doc> generateDocListFromUrlList(List<String> urlList) {
+		 List<Doc> docList=new ArrayList<Doc>();
+		 for (String url : urlList) {
+			 try {
+				docList.add(generateDocFromUrl(url));
+			} catch (IOException e) {
+				System.out.println(url+":从此url获取html失败");
+			}
+		}
+		 return docList;
+	}
+	public static Doc generateDocFromUrl(String url) throws IOException{
+		Doc doc=new Doc();
+		doc.text=AboutJsoup.getText(url);
+		doc.termList=AboutIKAnalyzer.getTermList(doc.text);
+		doc.termSet.addAll(doc.termList);
+		return doc;
 	}
 	public List<Double> getFeatureVectorList(){
 		for(String str:Term.featureSortedTermSet)

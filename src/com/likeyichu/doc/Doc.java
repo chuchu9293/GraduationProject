@@ -1,41 +1,44 @@
 package com.likeyichu.doc;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**ä»£è¡¨ç€ç½‘é¡µä¸­å¾—åˆ°çš„æ­£æ–‡æ–‡æœ¬*/
 public class Doc {
-	/**ÌáÈ¡µÄÕıÎÄ  */
+	/**æå–çš„æ­£æ–‡  */
 	public String text;
-	/**À´Ô´ÍøÒ³µÄurl  */
+	/**æ¥æºç½‘é¡µçš„url  */
 	public String url;
-	/**ÓĞĞòÅÅÁĞµÄÖĞÎÄ·Ö´Ê½á¹û£¬¿ÉÒÔÖØ¸´ */
+	/**æœ‰åºæ’åˆ—çš„ä¸­æ–‡åˆ†è¯ç»“æœï¼Œå¯ä»¥é‡å¤ */
 	public List<String> termList=new ArrayList<String>();
-	/**´ÊÆµµÄÓ³Éä*/
+	/**è¯é¢‘çš„æ˜ å°„,termToFrequencyMap.keySet()ä¸ºæŠ½æ ·åçš„ç‰¹å¾è¯*/
 	public Map<String,Integer> termToFrequencyMap=new HashMap<String,Integer>();
-	/**ÖĞÎÄ·Ö´Ê½á¹ûµÄset£¬ÓÃÓÚ¿¨·½¼ìÑéÖĞµÄ¿ìËÙ¼ìË÷*/
+	/**ä¸­æ–‡åˆ†è¯ç»“æœçš„setï¼Œç”¨äºå¡æ–¹æ£€éªŒä¸­çš„å¿«é€Ÿæ£€ç´¢*/
 	public Set<String> termSet=new HashSet<String>();
-	/**ÊÇ·ñÎª Ëã·¨Êµ¼ù Ïà¹ØÎÄÕÂ */
+	/**æ˜¯å¦ä¸º ç®—æ³•å®è·µ ç›¸å…³æ–‡ç«  */
 	public boolean isRelative=false;
-	/**ÌØÕ÷ÏòÁ¿*/
+	/**ç‰¹å¾å‘é‡*/
 	public List<Double> featureVectorList=new ArrayList<Double>();
 	
 	public static List<Doc> generateDocs(){
 		List<Doc> docList=new ArrayList<Doc> ();
 		Doc doc1=new Doc();
-		doc1.text="¶ş²æÊ÷¿ÉÒÔ·ÖÎªÆ½ºâ¶ş²æÊ÷Óë·ÇÆ½ºâ¶ş²æÊ÷";
-		doc1.termList.add("¶ş²æÊ÷");doc1.termList.add("¿ÉÒÔ");
-		doc1.termList.add("Æ½ºâ");doc1.termList.add("Æ½ºâ");
+		doc1.text="äºŒå‰æ ‘å¯ä»¥åˆ†ä¸ºå¹³è¡¡äºŒå‰æ ‘ä¸éå¹³è¡¡äºŒå‰æ ‘";
+		doc1.termList.add("äºŒå‰æ ‘");doc1.termList.add("å¯ä»¥");
+		doc1.termList.add("å¹³è¡¡");doc1.termList.add("å¹³è¡¡");
 		doc1.termSet.addAll(doc1.termList);
 		doc1.isRelative=true;
 		
 		Doc doc2=new Doc();
-		doc2.text="´°ÍâµÄÂéÈ¸£¬ÔÚµçÏß¸ËÉÏ¶à×ì";
-		doc2.termList.add("´°Íâ");doc2.termList.add("ÂéÈ¸");
-		doc2.termList.add("µçÏß¸Ë");doc2.termList.add("¶à×ì");
+		doc2.text="çª—å¤–çš„éº»é›€ï¼Œåœ¨ç”µçº¿æ†ä¸Šå¤šå˜´";
+		doc2.termList.add("çª—å¤–");doc2.termList.add("éº»é›€");
+		doc2.termList.add("ç”µçº¿æ†");doc2.termList.add("å¤šå˜´");
 		doc2.termSet.addAll(doc2.termList);
 		doc2.isRelative=false;
 		
@@ -45,28 +48,29 @@ public class Doc {
 	public static List<Doc> generateDocsTest(){
 		List<Doc> docList=new ArrayList<Doc> ();
 		Doc doc1=new Doc();
-		doc1.text="¶ş²æÊ÷¿ÉÒÔ·ÖÎªÆ½ºâ¶ş²æÊ÷Óë·ÇÆ½ºâ¶ş²æÊ÷";
-		doc1.termList.add("¶ş²æÊ÷");doc1.termList.add("¿ÉÒÔ");
-		doc1.termList.add("Æ½ºâ");doc1.termList.add("Æ½ºâ");
+		doc1.text="çª—å¤–çš„äºŒå‰æ ‘å¯ä»¥åˆ†ä¸ºå¹³è¡¡äºŒå‰æ ‘ä¸éå¹³è¡¡äºŒå‰æ ‘";
+		doc1.termList.add("çª—å¤–");
+		doc1.termList.add("äºŒå‰æ ‘");doc1.termList.add("å¯ä»¥");
+		doc1.termList.add("å¹³è¡¡");doc1.termList.add("å¹³è¡¡");
 		doc1.termSet.addAll(doc1.termList);
 		doc1.isRelative=true;
 		
 		Doc doc2=new Doc();
-		doc2.text="´°ÍâµÄÂéÈ¸£¬ÔÚµçÏß¸ËÉÏ¶à×ì";
-		doc2.termList.add("´°Íâ");doc2.termList.add("ÂéÈ¸");
-		doc2.termList.add("µçÏß¸Ë");doc2.termList.add("¶à×ì");
+		doc2.text="çª—å¤–çš„éº»é›€ï¼Œåœ¨ç”µçº¿æ†ä¸Šå¤šå˜´";
+		doc2.termList.add("çª—å¤–");doc2.termList.add("éº»é›€");
+		doc2.termList.add("ç”µçº¿æ†");doc2.termList.add("å¤šå˜´");
 		doc2.termSet.addAll(doc2.termList);
 		doc2.isRelative=false;
 		
 		docList.add(doc1); docList.add(doc2);
 		return docList;
 	}
-	public void getFeatureVectorList(){
+	public List<Double> getFeatureVectorList(){
 		for(String str:Term.featureSortedTermSet)
-			if(termSet.contains(str))
-				featureVectorList.add(1D);
-			else
-				featureVectorList.add(0D);
+			termToFrequencyMap.put(str,Collections.frequency(termList, str));
+		for(String str:Term.featureSortedTermSet)
+			featureVectorList.add((double)termToFrequencyMap.get(str));
+		return featureVectorList;
 	}
 	@Override
 	public String toString(){

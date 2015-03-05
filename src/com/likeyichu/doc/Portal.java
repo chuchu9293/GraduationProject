@@ -7,7 +7,11 @@ public class Portal {
 	public static void main(String[] args) {
 		FeatureSelection f=new FeatureSelection();
 		f.chiSquaretest();
-		f.showTopNTerm(4);
+		f.getFeatureSortedTermSet(4);
+		f.showTopNTerm(400);
+		for (Doc doc : DocStatistics.docList) {
+			System.out.println(doc.getFeatureVectorList());
+		}
 	}
 
 }

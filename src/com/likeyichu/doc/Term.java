@@ -31,6 +31,6 @@ public class Term implements Comparable<Term> {
 	}
 	@Override
 	public String toString(){
-		return new String("text="+text+" A="+A+" B="+B+" C="+C+" D="+D);
+		return new String("text="+text+" A="+A+" B="+B+" C="+C+" D="+D+"chiSquarevalue:"+chiSquareValue);
 	}
 }

@@ -11,15 +11,15 @@ import com.likeyichu.doc.Doc;
 import com.likeyichu.doc.DocStatistics;
 import com.likeyichu.doc.Term;
 
-/** »ùÓÚ¿¨·½¼ìÑéµÄÌØÕ÷Ñ¡Ôñ */
+/** åŸºäºå¡æ–¹æ£€éªŒçš„ç‰¹å¾é€‰æ‹© */
 public class FeatureSelection {
 
 	private List<Term> termList = new ArrayList<Term>();
-	/** ¿¨·½¼ìÑéµÄ½á¹û */
+	/** å¡æ–¹æ£€éªŒçš„ç»“æœ */
 	private Map<String, Double> chiSquareValueMap = new HashMap<String, Double>();
 
 	public void chiSquaretest() {
-		// ¼ÆËã¹«Ê½Îª (AD-BC)*(AD-BC)/((A+B)*(C+D))
+		// è®¡ç®—å…¬å¼ä¸º (AD-BC)*(AD-BC)/((A+B)*(C+D))
 		DocStatistics.getStatistics();
 		for (String str : DocStatistics.totalTermSet){
 			Term term=new Term(str);

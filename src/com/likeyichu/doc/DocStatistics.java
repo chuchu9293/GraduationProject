@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Set;
 
 public class DocStatistics {
-	/**ÎÄµµÁĞ±í  */
+	/**æ–‡æ¡£åˆ—è¡¨  */
 	public static List<Doc> docList=Doc.generateDocsTest();
-	/** ×ÜÎÄµµ¸öÊı */
+	/** æ€»æ–‡æ¡£ä¸ªæ•° */
 	public static int totalDocNumber;
-	/** Ïà¹ØÎÄµµ¸öÊı */
+	/** ç›¸å…³æ–‡æ¡£ä¸ªæ•° */
 	public static int relativeDocNumber;
-	/** ËùÓĞµÄ·Ö´Ê½á¹û,ÓĞĞò*/
+	/** æ‰€æœ‰çš„åˆ†è¯ç»“æœ,æœ‰åº*/
 	public static Set<String> totalTermSet=new HashSet<String>();
 	
 	public static void getStatistics(){

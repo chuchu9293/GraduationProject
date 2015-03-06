@@ -1,5 +1,6 @@
 package com.likeyichu.doc;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,6 +9,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.Set;
 
 import com.likeyichu.aboutikanalyzer.AboutIKAnalyzer;
@@ -15,6 +17,8 @@ import com.likeyichu.aboutjsoup.AboutJsoup;
 
 /**代表着网页中得到的正文文本*/
 public class Doc {
+	/**提取的title  */
+	public String title;
 	/**提取的正文  */
 	public String text;
 	/**来源网页的url  */
@@ -30,10 +34,7 @@ public class Doc {
 	/**特征向量*/
 	public List<Double> featureVectorList=new ArrayList<Double>();
 	
-	public static List<Doc> generateDocListFromLocal(){
-		//TODO
-		return null;
-	}
+	
 	public static List<Doc> generateDocsTest(){
 		List<Doc> docList=new ArrayList<Doc> ();
 		Doc doc1=new Doc();
@@ -54,22 +55,29 @@ public class Doc {
 		docList.add(doc1); docList.add(doc2);
 		return docList;
 	}
-	public static List<Doc> generateDocListFromUrlList(List<String> urlList) {
-		 List<Doc> docList=new ArrayList<Doc>();
-		 for (String url : urlList) {
-			 try {
-				docList.add(generateDocFromUrl(url));
-			} catch (IOException e) {
-				System.out.println(url+":从此url获取html失败");
-			}
-		}
-		 return docList;
-	}
-	public static Doc generateDocFromUrl(String url) throws IOException{
+	public static Doc generateDocFromFile(File file) throws IOException{
+		Scanner scanner=new Scanner(file);
+		StringBuilder sb=new StringBuilder();
+		while(scanner.hasNextLine())
+			sb.append(scanner.nextLine());
 		Doc doc=new Doc();
-		doc.text=AboutJsoup.getText(url);
+		doc.text=sb.toString();
 		doc.termList=AboutIKAnalyzer.getTermList(doc.text);
 		doc.termSet.addAll(doc.termList);
+		if(doc.text.startsWith("+1"))
+			doc.isRelative=true;
+		scanner.close();
+		return doc;
+	}
+	/**从url得到Doc*/
+	public static Doc generateDocFromUrl(String url,boolean isRelative) throws IOException{
+		Doc doc=new Doc();
+		StringBuilder title=new StringBuilder();
+		doc.text=AboutJsoup.getText(url,title);
+		doc.title=title.toString();
+		doc.termList=AboutIKAnalyzer.getTermList(doc.text);
+		doc.termSet.addAll(doc.termList);
+		doc.isRelative=isRelative;
 		return doc;
 	}
 	public List<Double> getFeatureVectorList(){

@@ -1,5 +1,7 @@
 package com.likeyichu.doc;
 
+import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -19,15 +21,21 @@ public class DocStatistics {
 	public static Set<String> totalTermSet=new HashSet<String>();
 	
 	public static List<String> urlList=new ArrayList<String>();
+	
+	public static List<Doc> addDocListFromLocal(String folderPath){
+		File theFolderPath =new File(folderPath) ;
+		File[] fileArr=theFolderPath.listFiles(new MyFileFilter());
+		for (File file : fileArr) {
+			try {
+				docList.add(Doc.generateDocFromFile(file));
+			} catch (IOException e) {
+				//e.printStackTrace();
+				System.out.println("解析一篇file出错");
+			}
+		}
+		return docList;
+	}
 	public static void getStatistics(){
-		//docList=Doc.generateDocsTest();
-		urlList.add("http://blog.csdn.net/chuchus/article/details/23205283");
-		urlList.add("http://blog.chinaunix.net/uid-10508451-id-2950845.html");
-		urlList.add("http://www.blogjava.net/zhenandaci/archive/2009/04/19/266388.html");
-		
-		docList=Doc.generateDocListFromUrlList(urlList);
-		docList.get(0).isRelative=true;
-		docList.get(2).isRelative=true;
 		for (Doc doc : docList) {
 			if(doc.isRelative)
 				relativeDocNumber++;
@@ -35,4 +43,14 @@ public class DocStatistics {
 		}
 		totalDocNumber=docList.size();
 	}
+}
+class MyFileFilter implements FilenameFilter{
+
+	@Override
+	public boolean accept(File dir, String name) {
+		if(name.toLowerCase().endsWith("txt"))
+			return true;
+		return false;
+	}
+	
 }

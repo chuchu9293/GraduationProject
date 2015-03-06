@@ -13,7 +13,7 @@ import com.likeyichu.doc.Term;
 
 /** 基于卡方检验的特征选择 */
 public class FeatureSelection {
-	/**结构体Term的List*/
+	/**结构体Term的List，无重复，从它里面筛选得到特征空间*/
 	private List<Term> termList = new ArrayList<Term>();
 
 	/**计算公式为 (AD-BC)*(AD-BC)/((A+B)*(C+D))
@@ -36,7 +36,7 @@ public class FeatureSelection {
 	}
 	public void getFeatureSortedTermSet(int n){
 		for(int i=0;i<n&&i<termList.size();i++)
-			Term.featureSortedTermSet.add(termList.get(i).text);
+			Term.featureSortedTermList.add(termList.get(i).text);
 	}
 	
 	private void calcTermInfo(Term term) {

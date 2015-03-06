@@ -1,6 +1,8 @@
 package com.likeyichu.doc;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -19,7 +21,8 @@ public class Term implements Comparable<Term> {
 	/**该单词的卡方检验结果*/
 	public double chiSquareValue;
 	/**提取出来的特征单词*/
-	public static Set<String> featureSortedTermSet=new TreeSet<String>();
+	//之所以不用TreeSet，因为要与
+	public static List<String> featureSortedTermList=new ArrayList<String>();
 	
 	public Term(String test){
 		this.text=test;
@@ -31,6 +34,6 @@ public class Term implements Comparable<Term> {
 	}
 	@Override
 	public String toString(){
-		return new String("text="+text+" A="+A+" B="+B+" C="+C+" D="+D+"chiSquarevalue:"+chiSquareValue);
+		return new String("text="+text+" ,A="+A+" B="+B+" C="+C+" D="+D+" ,chiSquarevalue:"+chiSquareValue);
 	}
 }

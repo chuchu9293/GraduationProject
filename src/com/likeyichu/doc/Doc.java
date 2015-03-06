@@ -81,10 +81,10 @@ public class Doc {
 		return doc;
 	}
 	public List<Double> getFeatureVectorList(){
-		for(String str:Term.featureSortedTermSet)
+		for(String str:Term.featureSortedTermList){
 			termToFrequencyMap.put(str,Collections.frequency(termList, str));
-		for(String str:Term.featureSortedTermSet)
 			featureVectorList.add((double)termToFrequencyMap.get(str));
+		}
 		return featureVectorList;
 	}
 	@Override

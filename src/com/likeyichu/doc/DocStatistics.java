@@ -23,8 +23,11 @@ public class DocStatistics {
 		//docList=Doc.generateDocsTest();
 		urlList.add("http://blog.csdn.net/chuchus/article/details/23205283");
 		urlList.add("http://blog.chinaunix.net/uid-10508451-id-2950845.html");
+		urlList.add("http://www.blogjava.net/zhenandaci/archive/2009/04/19/266388.html");
+		
 		docList=Doc.generateDocListFromUrlList(urlList);
 		docList.get(0).isRelative=true;
+		docList.get(2).isRelative=true;
 		for (Doc doc : docList) {
 			if(doc.isRelative)
 				relativeDocNumber++;

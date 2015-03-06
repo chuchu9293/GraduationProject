@@ -81,9 +81,21 @@ public class Doc {
 		return doc;
 	}
 	public List<Double> getFeatureVectorList(){
+		//被除数，除数，特征向量的模  计算用以归一化
+		double dividend=0,divisor,module;
 		for(String str:Term.featureSortedTermList){
 			termToFrequencyMap.put(str,Collections.frequency(termList, str));
 			featureVectorList.add((double)termToFrequencyMap.get(str));
+		}
+		for (Double double1 : featureVectorList) 
+			dividend+=double1*double1;
+		divisor=Math.sqrt(dividend);
+		module=dividend/divisor;
+		for(int i=0;i<featureVectorList.size();i++){
+			if(dividend==0) //可以==直接判断
+				break;
+			double tmp=featureVectorList.get(i)/module;
+			featureVectorList.set(i,tmp);
 		}
 		return featureVectorList;
 	}

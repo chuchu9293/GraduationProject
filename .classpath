@@ -3,8 +3,8 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="D:/Users/yc_du/Desktop/codes/jars/jsoup_1.7.2/jsoup-1.7.2.jar"/>
-	<classpathentry kind="lib" path="D:/Users/yc_du/Desktop/codes/jars/IK Analyzer 2012/IKAnalyzer2012FF_u1.jar"/>
-	<classpathentry kind="lib" path="D:/Users/yc_du/Desktop/codes/jars/lucene-4.10.3/core/lucene-core-4.10.3.jar"/>
+	<classpathentry kind="lib" path="jars/jsoup-1.7.2.jar"/>
+	<classpathentry kind="lib" path="jars/lucene-core-4.10.3.jar"/>
+	<classpathentry kind="lib" path="jars/IKAnalyzer2012FF_u1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

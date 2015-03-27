@@ -73,7 +73,7 @@ public class Doc {
 	public static Doc generateDocFromUrl(String url,boolean isRelative) throws IOException{
 		Doc doc=new Doc();
 		StringBuilder title=new StringBuilder();
-		doc.text=AboutJsoup.getText(url,title);
+		doc.text=AboutJsoup.getTextFromURL(url,title);
 		doc.title=title.toString();
 		doc.termList=AboutIKAnalyzer.getTermList(doc.text);
 		doc.termSet.addAll(doc.termList);

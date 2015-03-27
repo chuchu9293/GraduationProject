@@ -69,7 +69,7 @@ public class Train {
 	public static void downLoadHtml(String url, boolean isRelative)
 			throws IOException {
 		StringBuilder title = new StringBuilder();
-		String text = AboutJsoup.getText(url, title);
+		String text = AboutJsoup.getTextFromURL(url, title);
 		if (isRelative)
 			text = "+1\r\n" + text;
 		else

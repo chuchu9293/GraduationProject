@@ -27,10 +27,10 @@ public class Test {
 	}
 
 	static void preTrainTest() throws IOException{
-//		List<String> relativeUrlList=Train.getRelativeUrlsToDownLoad("c:\\GP\\getRelativeUrlsToDownLoad.txt");
-//		Train.downLoadHtmlList(relativeUrlList,true);
-//		List<String> IrrelevantUrlList=Train.getRelativeUrlsToDownLoad("c:\\GP\\getIrrelevantUrlsToDownLoad.txt");
-//		Train.downLoadHtmlList(IrrelevantUrlList,false);
+		List<String> relativeUrlList=Train.getRelativeUrlsToDownLoad("c:\\GP\\getRelativeUrlsToDownLoad.txt");
+		Train.downLoadHtmlList(relativeUrlList,true);
+		List<String> IrrelevantUrlList=Train.getRelativeUrlsToDownLoad("c:\\GP\\getIrrelevantUrlsToDownLoad.txt");
+		Train.downLoadHtmlList(IrrelevantUrlList,false);
 		//得到相关的docList
 		DocStatistics.addDocListFromLocal("c:\\GP\\downloadFiles\\relative\\");
 		//得到  不相关 的docList

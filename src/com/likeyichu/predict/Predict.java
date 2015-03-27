@@ -10,7 +10,7 @@ public class Predict {
 		boolean bool=false;
 		try {
 			StringBuilder title=new StringBuilder();
-			String text=AboutJsoup.getText(url,title);
+			String text=AboutJsoup.getTextFromURL(url,title);
 			System.out.println("html标题为:title");
 		} catch (IOException e) {
 			//e.printStackTrace();

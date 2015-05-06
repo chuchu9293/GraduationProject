@@ -5,9 +5,34 @@
   <version>1.0</version>
   <packaging>war</packaging>
   <name>GraduationProjectUse</name>
-  <description>GraduationProjectUse-使
-GraduationProjectUse-
-GraduationProjectUse-使用阶段</description>
+  <description>GraduationProjectUse-使用阶段</description>
+  <dependencies>
+		<dependency>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-servlet</artifactId>
+			<version>2.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-jackson</artifactId>
+			<version>2.5</version>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.31</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>4.0.6.RELEASE</version>
+		</dependency>
+	</dependencies>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>

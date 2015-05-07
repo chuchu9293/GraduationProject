@@ -33,7 +33,6 @@ public class UrlService {
 		return response;
 	}
 	
-	@Path("post")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)  //因为这行，urlResponseFun()的形参request会被jersey注入

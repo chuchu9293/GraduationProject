@@ -1,7 +1,15 @@
 package com.likeyichu.webservice;
 
 public class CollectRequest {
-	private String title,content,isPositive;
+	private String url,title,content,isPositive;
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
 	public String getTitle() {
 		return title;

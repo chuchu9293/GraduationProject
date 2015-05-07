@@ -1,4 +1,4 @@
-package com.likeyichu.aboutikanalyzer;
+package com.likeyichu.ikanalyzer;
 
 import java.io.IOException;
 import java.io.StringReader;

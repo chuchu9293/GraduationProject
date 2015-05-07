@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.likeyichu.aboutikanalyzer.AboutIKAnalyzer;
+import com.likeyichu.ikanalyzer.AboutIKAnalyzer;
 
 public class DocStatistics {
 	/**文档列表  */

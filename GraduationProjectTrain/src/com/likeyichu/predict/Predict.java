@@ -2,7 +2,7 @@ package com.likeyichu.predict;
 
 import java.io.IOException;
 
-import com.likeyichu.aboutjsoup.AboutJsoup;
+import com.likeyichu.jsoup.AboutJsoup;
 
 public class Predict {
 	/**从网页中获取文档，然后预测*/

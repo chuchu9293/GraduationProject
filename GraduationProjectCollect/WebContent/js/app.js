@@ -1,20 +1,4 @@
-angular.module('qingWebApp', [ 'ngRoute' ]).config(function($routeProvider) {
-	$routeProvider.when('/', {
-		redirectTo : '/countDown'
-	}).when('/gallery', {
-		templateUrl : 'ngViews/gallery.html'
-	}).when('/countDown', {
-		templateUrl : 'countDown.html',
-		controller : 'countDownController'
-	}).when('/menstruation', {
-		templateUrl : 'ngViews/menstruation.html'
-	}).when('/songs', {
-		templateUrl : 'ngViews/songs.html'
-	}).otherwise({
-		redirectTo : '/gallery'
-	});
-	;
-});
+angular.module('qingWebApp',[]);
 
 angular.module('qingWebApp').controller("appCtrl",
 /*

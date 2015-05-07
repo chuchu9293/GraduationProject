@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import com.likeyichu.aboutikanalyzer.AboutIKAnalyzer;
-import com.likeyichu.aboutjsoup.AboutJsoup;
 import com.likeyichu.doc.Doc;
 import com.likeyichu.doc.DocStatistics;
+import com.likeyichu.ikanalyzer.AboutIKAnalyzer;
+import com.likeyichu.jsoup.AboutJsoup;
 import com.likeyichu.math.FeatureSelection;
 
 public class Train {

@@ -12,8 +12,8 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
-import com.likeyichu.aboutikanalyzer.AboutIKAnalyzer;
-import com.likeyichu.aboutjsoup.AboutJsoup;
+import com.likeyichu.ikanalyzer.AboutIKAnalyzer;
+import com.likeyichu.jsoup.AboutJsoup;
 
 /**代表着网页中得到的正文文本*/
 public class Doc {

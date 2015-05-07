@@ -20,14 +20,6 @@ public class Dao implements BeanFactoryAware{
 	final static Logger logger=Logger.getLogger(Dao.class);
 	private static DataSource  dataSource;
 	private static Connection connection;
-	void update(String ip) throws SQLException, ClientProtocolException, IOException{
-		String sql = "update `qing-WebTable` set ip_info=? where ip="+"\""+ip+"\"";
-		PreparedStatement preparedStatement = connection.prepareStatement(sql);
-		String str=IPUtil.getIpInfo(ip);
-		preparedStatement.setString(1,str);
-		preparedStatement.executeUpdate();
-		logger.info(ip+str);
-	}
 
 	@Override
 	public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
@@ -43,13 +35,6 @@ public class Dao implements BeanFactoryAware{
 		 while(rs.next()){
 			 String ip=rs.getString("ip");
 			 String ipInfo=rs.getString("ip_info");
-			 try {
-				 //if(ipInfo==null||ipInfo.length()<2)
-				dao.update(ip);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 		 }
 		 
 	} 

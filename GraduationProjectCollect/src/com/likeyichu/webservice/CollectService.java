@@ -23,7 +23,7 @@ public class CollectService {
 	public  CollectResponse  collectFun ( CollectRequest request) throws IOException {
 		int docId= dao.insert(request.getUrl(),request.getTitle(), request.getContent(), request.getIsPositive().equalsIgnoreCase("true"));
 		CollectResponse response=new CollectResponse();
-		response.setIsOK("true");
+		response.setIsOk("true");
 		response.setDocId(String.valueOf(docId));
 		logger.info("collectService请求的文档title为："+request.getTitle());
 		logger.info("collectService收集成功"+response.getDocId());

@@ -18,10 +18,13 @@ public class AboutJsoup {
 	/**根据指定的url得到网页，返回文本，第二个参数返回标题*/
 	public static String getTextFromURL(String url,StringBuilder out_title) throws IOException {
 		Document doc = Jsoup.connect(url).userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36 LBBROWSER").get();
-		logger.info("得到一篇网络文档，标题：     "+doc.title());
+		String title=doc.title();
+		if(title==null||title.length()<1)
+			title="无标题";
+		logger.info("得到一篇网络文档，标题：     "+title);
 		if(out_title.toString().length()!=0)
 			out_title.delete(0,out_title.toString().length()-1);
-		out_title.append(doc.title());
+		out_title.append(title);
 		String text = doc.text();
 //		String[] texts = text.split("。|\\.");// 以中文句号或英文句号作为分割
 //		for (String string : texts) {

@@ -3,12 +3,12 @@ package com.likeyichu.webservice;
 public class CollectResponse {
 	private String isOk,docId;
 
-	public String getIsOK() {
+	public String getIsOk() {
 		return isOk;
 	}
 
-	public void setIsOK(String isOK) {
-		this.isOk = isOK;
+	public void setIsOk(String isOk) {
+		this.isOk = isOk;
 	}
 
 	public String getDocId() {

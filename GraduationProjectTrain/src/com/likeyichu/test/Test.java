@@ -7,8 +7,6 @@ import java.util.List;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
 import com.likeyichu.doc.Doc;

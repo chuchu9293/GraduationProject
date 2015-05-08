@@ -109,7 +109,7 @@ public class Dao implements BeanFactoryAware {
 
 	void insertPositive(int id, String url, String title, String content) {
 		checkConnection();
-		String sql = "insert into `collect_positive_table` (no,id,isURL,URL,isLocal,content,time) values (?,?,?,?,?,?,?) ";
+		String sql = "insert into `collect_positive_table` (no,id,title,isURL,URL,isLocal,content,time) values (?,?,?,?,?,?,?,?) ";
 		PreparedStatement ps;
 
 		DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -118,21 +118,46 @@ public class Dao implements BeanFactoryAware {
 			ps = connection.prepareStatement(sql);
 			ps.setInt(1, maxNo("collect_positive_table") + 1);
 			ps.setInt(2, id);
-			ps.setBoolean(3, true);
-			ps.setString(4, url);
-			ps.setBoolean(5, false);
-			ps.setString(6, content);
-			ps.setString(7, sqlDate);
+			ps.setString(3, title);
+			ps.setBoolean(4, true);
+			ps.setString(5, url);
+			ps.setBoolean(6, false);
+			ps.setString(7, content);
+			ps.setString(8, sqlDate);
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {
 			logger.error("插入collect_positive_table失败" + e.toString());
 		}
 	}
+	
+	public void insertPositiveLocal(String title, String path,  String content) {
+		checkConnection();
+		String sql = "insert into `collect_positive_table` (no,id,title,isURL,isLocal,path,content,time) values (?,?,?,?,?,?,?,?) ";
+		PreparedStatement ps;
+
+		DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String sqlDate = format1.format(new Date());
+		try {
+			ps = connection.prepareStatement(sql);
+			ps.setInt(1, maxNo("collect_positive_table") + 1);
+			ps.setInt(2, maxId()+1);
+			ps.setString(3, title);
+			ps.setBoolean(4, false);
+			ps.setBoolean(5, true);
+			ps.setString(6, path);
+			ps.setString(7, content);
+			ps.setString(8, sqlDate);
+			ps.executeUpdate();
+			ps.close();
+		} catch (SQLException e) {
+			logger.error("(Local)插入collect_positive_table失败" + e.toString());
+		}
+	}
 
 	void insertNegative(int id, String url, String title, String content) {
 		checkConnection();
-		String sql = "insert into `collect_negative_table` (no,id,isURL,URL,isLocal,content,time) values (?,?,?,?,?,?,?) ";
+		String sql = "insert into `collect_negative_table` (no,id,title,isURL,URL,isLocal,content,time) values (?,?,?,?,?,?,?,?)";
 		PreparedStatement ps;
 		DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String sqlDate = format1.format(new Date());
@@ -140,11 +165,12 @@ public class Dao implements BeanFactoryAware {
 			ps = connection.prepareStatement(sql);
 			ps.setInt(1, maxNo("collect_negative_table") + 1);
 			ps.setInt(2, id);
-			ps.setBoolean(3, true);
-			ps.setString(4, url);
-			ps.setBoolean(5, false);
-			ps.setString(6, content);
-			ps.setString(7, sqlDate);
+			ps.setString(3, title);
+			ps.setBoolean(4, true);
+			ps.setString(5, url);
+			ps.setBoolean(6, false);
+			ps.setString(7, content);
+			ps.setString(8, sqlDate);
 			ps.executeUpdate();
 			ps.close();
 		} catch (SQLException e) {

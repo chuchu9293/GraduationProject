@@ -49,9 +49,9 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	<!--  <modules>
+  	<modules>
 		<module>../GraduationProjectCollect</module>
 		<module>../GraduationProjectTrain</module>
 		<module>../GraduationProjectUse</module>
-	</modules>-->
+	</modules>
 </project>

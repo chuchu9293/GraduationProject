@@ -2,6 +2,7 @@ package com.likeyichu.spider;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -29,6 +30,8 @@ public class Spider {
 	}
 	void work(){
 		while(unread<threshold){
+			if(workIndex>=urlList.size())
+				workIndex--;
 			getUrl(urlList.get(workIndex++));
 		}
 	}
@@ -39,6 +42,13 @@ public class Spider {
 		}
 		try {
 			List<String> tmpList=AboutJsoup.getLinkList(url);
+			Iterator<String> iterator=tmpList.iterator();
+			//有些href不以“http://”开头，那么jsoup解析就会出错，所以需要把它们删了
+			while(iterator.hasNext()){
+				String str=iterator.next();
+				if(!str.startsWith("http://"))
+					iterator.remove();
+			}
 			urlList.addAll(tmpList);
 			unread+=tmpList.size();
 		} catch (IOException e) {

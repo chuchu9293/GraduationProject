@@ -28,7 +28,6 @@ public class Term implements Comparable<Term> {
 		this.text=test;
 	}
 
-	@Override
 	public int compareTo(Term o) {
 		return (int) (chiSquareValue-o.chiSquareValue);
 	}

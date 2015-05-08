@@ -42,14 +42,14 @@ public class FeatureSelection {
 	private void calcTermInfo(Term term) {
 		for (Doc doc : DocStatistics.docList) {
 			if (doc.termSet.contains(term.text)) {
-				if (doc.isRelative)
+				if (doc.isPositive)
 					term.A++;
 				else
 					term.B++;
 			}
 		}
-		term.C = DocStatistics.relativeDocNumber - term.A;
-		term.D = DocStatistics.totalDocNumber - DocStatistics.relativeDocNumber
+		term.C = DocStatistics.positiveDocNumber - term.A;
+		term.D = DocStatistics.totalDocNumber - DocStatistics.positiveDocNumber
 				- term.B;
 		if (term.C+term.D==0){
 			term.chiSquareValue=0;

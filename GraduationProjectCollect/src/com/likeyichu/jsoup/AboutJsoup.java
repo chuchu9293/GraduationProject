@@ -13,6 +13,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.likeyichu.local.LocalPage;
+
 public class AboutJsoup {
 	private static Logger logger=Logger.getLogger(AboutJsoup.class);
 	/**根据指定的url得到网页，返回文本，第二个参数返回标题*/
@@ -36,20 +38,17 @@ public class AboutJsoup {
 		return text;
 	}
 	
-	/**根据指定的本地网页，返回文本，第二个参数返回标题*/
-	public static String getTextFromLocal(String filePath,StringBuilder out_title) throws IOException {
-		File in = new File(filePath);
-		Document doc = Jsoup.parse(in, "UTF-8", ""); 
-		System.out.println("得到一篇本地文档，标题：     "+doc.title());
-		if(out_title.toString().length()!=0)
-			out_title.delete(0,out_title.toString().length()-1);
-		out_title.append(doc.title());
-		String text = doc.text();
-//		String[] texts = text.split("。|\\.");// 以中文句号或英文句号作为分割
-//		for (String string : texts) {
-//			System.out.println(string);
-//		}
-		return text;
+	/**根据指定的本地网页，返回解析后网页*/
+	public static LocalPage getLocalPage(File file) throws IOException {
+		LocalPage localPage=new LocalPage();
+		Document doc = Jsoup.parse(file, "UTF-8", ""); 
+		logger.info("得到一篇本地文档，标题：     "+doc.title());
+		
+		localPage.path=file.getAbsolutePath();
+		localPage.title=doc.title();
+		localPage.content = doc.text();
+		
+		return localPage;
 	}
 	/**得到网页中的所有跳转链接*/
 	public static List<String> getLinkList(String url) throws IOException{

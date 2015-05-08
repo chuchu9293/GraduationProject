@@ -18,6 +18,8 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
 import org.springframework.stereotype.Component;
 
+import com.likeyichu.webservice.StatisticsResponse;
+
 @Component
 public class Dao implements BeanFactoryAware {
 	final static Logger logger = Logger.getLogger(Dao.class);
@@ -148,5 +150,44 @@ public class Dao implements BeanFactoryAware {
 		} catch (SQLException e) {
 			logger.error("插入collect_negative_table失败" + e.toString());
 		}
+	}
+	public StatisticsResponse statistics(){
+		StatisticsResponse response=new StatisticsResponse();
+		checkConnection();
+		try{
+		Statement sm = connection.createStatement();
+		
+		//查询collect_positive_table
+		String sql = "select count(id) from `collect_positive_table` ";
+		ResultSet rs = sm.executeQuery(sql);
+		rs.next();
+		response.setPositiveTotal(rs.getInt(1));
+		rs.close();
+		
+		sql=sql+"where isURL=1";
+		rs = sm.executeQuery(sql);
+		rs.next();
+		response.setPositiveUrl(rs.getInt(1));
+		rs.close();
+		response.setPositiveLocal(response.getPositiveTotal()-response.getPositiveUrl());
+		
+		
+		//查询collect_negative_table
+		sql="select count(id) from `collect_negative_table` ";
+		rs = sm.executeQuery(sql);
+		rs.next();
+		response.setNegativeTotal(rs.getInt(1));
+		rs.close();
+		sql=sql+"where isURL=1";
+		rs = sm.executeQuery(sql);
+		rs.next();
+		response.setNegativeUrl(rs.getInt(1));
+		rs.close();
+		response.setNegativeLocal(response.getNegativeTotal()-response.getNegativeUrl());
+		}catch(SQLException e){
+			logger.error("统计collect_positive_table与collect_negative_table失败");
+		}
+		response.setTotal(response.getNegativeTotal()+response.getPositiveTotal());
+		return response;
 	}
 }

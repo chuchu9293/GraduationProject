@@ -10,6 +10,27 @@ angular
 					$scope.url = "http://www.csdn.net";
 					$scope.collectObj = new Object();
 
+					// 读取收集系统数据库的统计信息
+					$scope.statisticsService = function() {
+						$http
+								.get(
+										"/GraduationProjectCollect/webService/statisticsService")
+								.success(
+										function(data) {
+											$scope.statistics = new Object();
+											$scope.statistics.total = data.total;
+											$scope.statistics.positiveTotal = data.positiveTotal;
+											$scope.statistics.positiveUrl = data.positiveUrl;
+											$scope.statistics.positiveLocal = data.positiveLocal;
+											$scope.statistics.negativeTotal = data.negativeTotal;
+											$scope.statistics.negativeUrl = data.negativeUrl;
+											$scope.statistics.negativeLocal = data.negativeLocal;
+										}).error(function(data) {
+									alert("读取收集系统数据库的统计信息失败");
+									console.log(data);
+								});
+					}
+
 					// 设置初始爬虫系统url
 					$scope.setInitialUrl = function(url) {
 						$http.get(
@@ -29,7 +50,7 @@ angular
 							$scope.urlService($scope.nextUrl)
 						});
 					}
-					
+
 					$scope.getNextUrl = function() {
 						var promise = $http
 								.get(
@@ -53,7 +74,6 @@ angular
 								.post(
 										"/GraduationProjectCollect/webService/urlService",
 										urlJson).success(function(data) {
-									alert('通过urlService得到一篇文档,标题：'+data.title);
 									$scope.collectObj.url = url;
 									$scope.collectObj.title = data.title;
 									$scope.collectObj.content = data.content;
@@ -76,23 +96,23 @@ angular
 						$http
 								.post(
 										"/GraduationProjectCollect/webService/collectService",
-										collectJson).success(
+										collectJson)
+								.success(
 										function(data) {
 											if (data.isOk == "true"
 													&& data.docId != "-1") {
 												alert('写入数据库成功，存入的docId为：'
 														+ data.docId);
-											}
-											else{
+											} else {
 												alert('可能由于数据库已有该 url记录，写入数据库失败');
 											}
-											//展示爬虫系统的下一个url并解析此url
+											// 展示爬虫系统的下一个url并解析此url
 											$scope.nextDisplay();
 
 										}).error(function(data) {
 									alert('写入数据库失败');
 									console.log(data);
-									//展示爬虫系统的下一个url并解析此url
+									// 展示爬虫系统的下一个url并解析此url
 									$scope.nextDisplay();
 								});
 

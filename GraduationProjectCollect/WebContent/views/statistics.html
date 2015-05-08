@@ -39,39 +39,22 @@
 			</div>
 
 			<ul class="nav navbar-nav navbar-right">
-				 <li ><a href="index.html">说明 </a></li>
-         <li><a href="statistics.html">收集统计</a></li>
-         <li class="active"><a href="collect.html">收集增添</a></li>
+			 <li ><a href="index.html">说明 </a></li>
+         <li class="active"><a href="statistics.html">收集统计</a></li>
+         <li><a href="collect.html">收集增添</a></li>
 			</ul>
 
 		</div>
 	</nav>
 	<div ng-app="myApp" ng-controller="appController">
 		<div>
-			告诉收集系统爬虫工作所需的初始url:<input style="width: 100%" type="text"
-				placeholder="需要有http://前缀" ng-model="url" />
-				<!-- 传参要这样传，url会自动被$scope.url内容替换 -->
-			<button ng-click='setInitialUrl(url)'>确定</button>
+			<button ng-click=' statisticsService() '>读取收集系统数据库的统计信息</button><hr>
+			总共有有数据：<span class="text">{{statistics.total}}</span>条<br>
+			正面样本（对应表collect_positive_table）中有数据：<span class="text">{{statistics.positiveTotal}}</span>条<br>
+			其中URL数据：<span class="text">{{statistics.positiveUrl}}</span>条，Local数据<span class="text">{{statistics.positiveLocal}}</span>条<br>
+			反面样本（对应表collect_negative_table）中有数据：<span class="text">{{statistics.negativeTotal}}</span>条<br>
+			其中URL数据：<span class="text">{{statistics.negativeUrl}}</span>条，Local数据<span class="text">{{statistics.negativeLocal}}</span>条<br>
 		</div>
-		<div>
-		下列文档是否与算法实践相关？
-			<button ng-click='collectService(true)'>是</button>
-			<button ng-click='collectService(false)'>否</button>
-			<button ng-click='nextDisplay()'>不清楚，跳过</button>
-					
-		</div>
-	<h2>url</h2>
-	<div id="url">
-	{{collectObj.url}}
-	</div>
-	<h2>标题</h2>
-	<div id="title">
-	{{collectObj.title}}
-	</div>
-	<h2>内容</h2>
-	<div id="content">
-	{{collectObj.content}}
-	</div>
 	</div>
 	
 

@@ -30,6 +30,9 @@ public class AboutJsoup {
 //		for (String string : texts) {
 //			System.out.println(string);
 //		}
+		if(text==null||text.length()<1){
+			text="可能由于网页反爬虫策略，无内容";
+		}
 		return text;
 	}
 	

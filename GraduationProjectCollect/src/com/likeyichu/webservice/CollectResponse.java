@@ -1,14 +1,14 @@
 package com.likeyichu.webservice;
 
 public class CollectResponse {
-	private String isOK,docId;
+	private String isOk,docId;
 
 	public String getIsOK() {
-		return isOK;
+		return isOk;
 	}
 
 	public void setIsOK(String isOK) {
-		this.isOK = isOK;
+		this.isOk = isOK;
 	}
 
 	public String getDocId() {

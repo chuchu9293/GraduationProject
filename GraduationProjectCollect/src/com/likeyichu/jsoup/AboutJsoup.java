@@ -2,18 +2,22 @@ package com.likeyichu.jsoup;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 public class AboutJsoup {
 	private static Logger logger=Logger.getLogger(AboutJsoup.class);
 	/**根据指定的url得到网页，返回文本，第二个参数返回标题*/
 	public static String getTextFromURL(String url,StringBuilder out_title) throws IOException {
-		Document doc = Jsoup.connect(url).userAgent("Mozilla").get();
+		Document doc = Jsoup.connect(url).userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36 LBBROWSER").get();
 		logger.info("得到一篇网络文档，标题：     "+doc.title());
 		if(out_title.toString().length()!=0)
 			out_title.delete(0,out_title.toString().length()-1);
@@ -41,8 +45,18 @@ public class AboutJsoup {
 //		}
 		return text;
 	}
-	public static void main(String[] args) throws IOException {
-		StringBuilder sb=new StringBuilder();
-		AboutJsoup.getTextFromLocal("D:\\东华的工作学习\\毕业设计\\老师给的资料\\html\\html\\reporta031.html", sb);
+	/**得到网页中的所有跳转链接*/
+	public static List<String> getLinkList(String url) throws IOException{
+		Map<String,String> map=new  HashMap<String,String>();
+		Document doc = Jsoup.connect(url).userAgent("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.99 Safari/537.36 LBBROWSER").get();
+		Elements elements=doc.getElementsByTag("a");
+		for (Element element : elements) {
+			 String linkHref = element.attr("href");
+			 String linkText = element.text();
+			 map.put(linkText,linkHref);
+		}
+		ArrayList<String> urlList=new ArrayList<String>( map.values());
+		return urlList;
 	}
+	
 }

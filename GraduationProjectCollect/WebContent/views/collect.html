@@ -49,11 +49,27 @@
 		<div>
 			告诉收集系统爬虫工作所需的初始url:<input style="width: 100%" type="text"
 				placeholder="需要有http://前缀" ng-model="url" />
-			<button ng-click="urlSubmit()">确定</button>
+				<!-- 传参要这样传，url会自动被$scope.url内容替换 -->
+			<button ng-click='setInitialUrl(url)'>确定</button>
 		</div>
-	<div id="title">
+		<div>
+		下列文档是否与算法实践相关？
+			<button ng-click='collectService(true)'>是</button>
+			<button ng-click='collectService(false)'>否</button>
+			<button ng-click='nextDisplay()'>不清楚，跳过</button>
+					
+		</div>
+	<h2>url</h2>
+	<div id="url">
+	{{collectObj.url}}
 	</div>
+	<h2>标题</h2>
+	<div id="title">
+	{{collectObj.title}}
+	</div>
+	<h2>内容</h2>
 	<div id="content">
+	{{collectObj.content}}
 	</div>
 	</div>
 	

@@ -1,8 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.likeyichu</groupId>
+  <parent>
+		<groupId>com.likeyichu</groupId>
+		<artifactId>GraduationProjectAll</artifactId>
+		<version>1.0</version>
+	</parent>
   <artifactId>GraduationProjectUse</artifactId>
-  <version>1.0</version>
   <packaging>war</packaging>
   <name>GraduationProjectUse</name>
   <description>GraduationProjectUse-使用阶段</description>
@@ -10,27 +13,27 @@
 		<dependency>
 			<groupId>org.glassfish.jersey.containers</groupId>
 			<artifactId>jersey-container-servlet</artifactId>
-			<version>2.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.glassfish.jersey.media</groupId>
 			<artifactId>jersey-media-json-jackson</artifactId>
-			<version>2.5</version>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.31</version>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>4.0.6.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>com.likeyichu</groupId>
+			<artifactId>GraduationProjectTrain</artifactId>
+			<version>1.0</version>
 		</dependency>
 	</dependencies>
   <build>

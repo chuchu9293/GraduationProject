@@ -58,7 +58,7 @@ angular
 								.success(function(data) {
 									$scope.nextUrl = data;
 								}).error(function(data) {
-									alert("获取爬虫系统地nextUrl失败");
+									alert("获取爬虫系统的nextUrl失败");
 									console.log(data);
 								});
 						return promise;

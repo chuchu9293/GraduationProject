@@ -13,7 +13,6 @@ import java.util.Scanner;
 import java.util.Set;
 
 import com.likeyichu.ikanalyzer.AboutIKAnalyzer;
-import com.likeyichu.jsoup.AboutJsoup;
 
 /**代表着网页中得到的正文文本*/
 public class Doc {
@@ -35,26 +34,6 @@ public class Doc {
 	public List<Double> featureVectorList=new ArrayList<Double>();
 	
 	
-	public static List<Doc> generateDocsTest(){
-		List<Doc> docList=new ArrayList<Doc> ();
-		Doc doc1=new Doc();
-		doc1.text="窗外的二叉树可以分为平衡二叉树与非平衡二叉树";
-		doc1.termList.add("窗外");
-		doc1.termList.add("二叉树");doc1.termList.add("可以");
-		doc1.termList.add("平衡");doc1.termList.add("平衡");
-		doc1.termSet.addAll(doc1.termList);
-		doc1.isRelative=true;
-		
-		Doc doc2=new Doc();
-		doc2.text="窗外的麻雀，在电线杆上多嘴";
-		doc2.termList.add("窗外");doc2.termList.add("麻雀");
-		doc2.termList.add("电线杆");doc2.termList.add("多嘴");
-		doc2.termSet.addAll(doc2.termList);
-		doc2.isRelative=false;
-		
-		docList.add(doc1); docList.add(doc2);
-		return docList;
-	}
 	public static Doc generateDocFromFile(File file) throws IOException{
 		Scanner scanner=new Scanner(file);
 		StringBuilder sb=new StringBuilder();
@@ -67,17 +46,6 @@ public class Doc {
 		if(doc.text.startsWith("+1"))
 			doc.isRelative=true;
 		scanner.close();
-		return doc;
-	}
-	/**从url得到Doc*/
-	public static Doc generateDocFromUrl(String url,boolean isRelative) throws IOException{
-		Doc doc=new Doc();
-		StringBuilder title=new StringBuilder();
-		doc.text=AboutJsoup.getTextFromURL(url,title);
-		doc.title=title.toString();
-		doc.termList=AboutIKAnalyzer.getTermList(doc.text);
-		doc.termSet.addAll(doc.termList);
-		doc.isRelative=isRelative;
 		return doc;
 	}
 	public List<Double> getFeatureVectorList(){

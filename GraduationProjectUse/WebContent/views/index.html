@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<!-- Bootstrap  根据屏幕大小自适应样式 -->
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+<!-- 可选的Bootstrap主题文件（一般不用引入） -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../css/app.css">
+
+<title>基于SVM的算法实践相关文本判别系统——判别模块</title>
+</head>
+<body class="container">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">基于SVM的算法实践相关文本判别系统——判别模块</a>
+    </div>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li class="active"><a href="index.html">说明 </a></li>
+         <li><a href="use.html">判别</a></li>
+      </ul>
+ 
+  </div>
+</nav>
+
+	<div>
+		放入一个初始url，该系统会开始爬取，并将每个url的正文展现。<br>
+		选择“是”，该网页被作为正例收集<br>
+		选择“否”，该网页被作为反例收集<br>
+		选择“不清楚，跳过”，该网页不被处理<br>
+	</div>
+	<hr>
+	<div>
+		用到的技术与工具<br>
+		jersey——webService框架<br>
+		jackson——json与java对象的序列与反序列化<br>
+		tomcat-jdbc-pool——数据库连接池<br>
+		spring——依赖注入框架<br>
+		bootstrap——前端css框架<br>
+		AnjularJS——前端MVC框架<br>
+		ajax——异步http请求<br>
+		maven——项目依赖管理工具<br>
+	</div>
+	<div class="myfooter">
+		&copy;2015&nbsp;<span class="text">yichu</span>
+		&nbsp;|&nbsp;沪ICP备15017991号
+	</div>
+</body>
+</html>

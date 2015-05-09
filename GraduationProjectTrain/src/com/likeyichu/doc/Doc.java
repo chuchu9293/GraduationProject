@@ -26,17 +26,17 @@ public class Doc {
 	/**提取的正文  */
 	public String content;
 	
+	/**是否为 算法实践 相关文章 */
+	public boolean isPositive=false;
+	
 	/**有序排列的中文分词结果，可以重复 */
 	public List<String> termList=new ArrayList<String>();
-	
-	/**词频的映射,termToFrequencyMap.keySet()为抽样后的特征词*/
-	public Map<String,Integer> termToFrequencyMap=new HashMap<String,Integer>();
 	
 	/**中文分词结果的set，用于卡方检验中的快速检索*/
 	public Set<String> termSet=new HashSet<String>();
 	
-	/**是否为 算法实践 相关文章 */
-	public boolean isPositive=false;
+	/**词频的映射,termToFrequencyMap.keySet()为抽样后的特征词*/
+	public Map<String,Integer> termToFrequencyMap=new HashMap<String,Integer>();
 	
 	/**特征向量*/
 	public List<Double> featureVectorList=new ArrayList<Double>();
@@ -72,6 +72,7 @@ public class Doc {
 		}
 		return featureVectorList;
 	}
+	
 	@Override
 	public String toString(){
 		return termSet.toString();

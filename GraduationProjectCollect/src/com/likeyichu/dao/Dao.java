@@ -7,8 +7,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
@@ -24,6 +26,7 @@ import com.likeyichu.webservice.StatisticsResponse;
 public class Dao implements BeanFactoryAware {
 	final static Logger logger = Logger.getLogger(Dao.class);
 	private static DataSource dataSource;
+	
 	private static Connection connection;
 	private static Set<String> urlSet = new HashSet<String>();
 
@@ -37,6 +40,12 @@ public class Dao implements BeanFactoryAware {
 		} catch (SQLException e) {
 			logger.error("初始化urlSet失败" + e.toString());
 		}
+	}
+	public  DataSource getDataSource() {
+		return dataSource;
+	}
+	public  void setDataSource(DataSource dataSource) {
+		Dao.dataSource = dataSource;
 	}
 	void checkConnection(){
 		try {
@@ -130,7 +139,17 @@ public class Dao implements BeanFactoryAware {
 			logger.error("插入collect_positive_table失败" + e.toString());
 		}
 	}
-	
+	public Set<String> localPathathSet() throws SQLException{
+		Set<String> set=new HashSet<String>();
+		checkConnection();
+		Statement sm = connection.createStatement();
+		ResultSet rs = sm
+				.executeQuery("select path from `collect_positive_table`");
+		while(rs.next()){
+			set.add(rs.getString("path"));
+		}
+		return set;
+	}
 	public void insertPositiveLocal(String title, String path,  String content) {
 		checkConnection();
 		String sql = "insert into `collect_positive_table` (no,id,title,isURL,isLocal,path,content,time) values (?,?,?,?,?,?,?,?) ";

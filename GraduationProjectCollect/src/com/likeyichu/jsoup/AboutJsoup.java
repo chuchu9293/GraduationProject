@@ -41,7 +41,7 @@ public class AboutJsoup {
 	/**根据指定的本地网页，返回解析后网页*/
 	public static LocalPage getLocalPage(File file) throws IOException {
 		LocalPage localPage=new LocalPage();
-		Document doc = Jsoup.parse(file, "UTF-8", ""); 
+		Document doc = Jsoup.parse(file, null, "");//不需要设置编码，Jsoup会根据<meta>标签的charset属性自己决定，好省心 
 		logger.info("得到一篇本地文档，标题：     "+doc.title());
 		
 		localPage.path=file.getAbsolutePath();

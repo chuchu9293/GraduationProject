@@ -138,11 +138,11 @@ public class Dao {
 		}
 	}
 	
-	public void insertVectorList(int id,String title, String tokenList,boolean isPositive) {
+	public void insertVectorList(int id,String title, String vectorList,boolean isPositive) {
 		if (isPositive)
-			insertPositiveToken(id, title, tokenList);
+			insertPositiveVectorList(id, title, vectorList);
 		else
-			insertPositiveToken(id, title, tokenList);
+			insertNegativeVectorList(id, title, vectorList);
 	}
 	/**positiveVector*/
 	void insertPositiveVectorList(int id, String title, String vectorList) {
@@ -218,5 +218,24 @@ public class Dao {
 				rs.close();
 				logger.info("从token_negative_table拿到数据个数："+(docList.size()-positiveNum));
 		 return docList;
+	}
+	/**提取后的特征空间，插入数据库*/
+	public  void insertFeatureSortedTokenStringListToTable(List<String> list){
+		 checkConnection();
+			String sql = "insert into `non_relational_table` (theKey,theValue,time) values (?,?,?) ";
+			PreparedStatement ps;
+
+			DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String sqlDate = format1.format(new Date());
+			try {
+				ps = connection.prepareStatement(sql);
+				ps.setString(1, "featureList");
+				ps.setString(2, list.toString());
+				ps.setString(3, sqlDate);
+				ps.executeUpdate();
+				ps.close();
+			} catch (SQLException e) {
+				logger.error("插入non_relational_table失败" + e.toString());
+			}
 	}
 }

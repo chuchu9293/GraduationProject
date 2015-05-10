@@ -58,8 +58,14 @@ public class Doc {
 		doc.tokenList=AboutIKAnalyzer.getTokenList(doc.content);
 		return doc;
 	}
-	
+	void transformTokenListToTokenStringList(){
+		tokenList.clear();
+		for (Token token : tokenTokenList) {
+			tokenList.add(token.text);
+		}
+	}
 	public List<Double> getFeatureVectorList(){
+		transformTokenListToTokenStringList();
 		//被除数，除数，特征向量的模  计算用以归一化
 		double dividend=0,divisor,module;
 		for(String str:TokenStatistics.featureSortedTokenStringList){

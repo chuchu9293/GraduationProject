@@ -48,4 +48,10 @@ public class TokenStatistics {
 		logger.info("得到的totalTokenSet.size()="+totalTokenSet.size());
 	}
 	
+	/**提取后的特征空间，插入数据库*/
+	public static void insertFeatureSortedTokenStringListToTable(){
+		Dao dao=Dao.getDao();
+		dao.insertFeatureSortedTokenStringListToTable(featureSortedTokenStringList);
+	}
+	
 }

@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import com.likeyichu.doc.Doc;
 import com.likeyichu.token.Token;
 import com.likeyichu.token.TokenStatistics;
+import com.likeyichu.vector.VectorStatistics;
 
 /** 基于卡方检验的特征选择 */
 public class FeatureSelection {
@@ -60,11 +61,15 @@ public class FeatureSelection {
 				/ ((token.A + token.B) * (token.C + token.D));
 	}
 	
+	
 	public static void main(String[] args) {
 		TokenStatistics.generateDocListFromTable();
 		TokenStatistics.getTotalTokenSet();
 		FeatureSelection featureSelection=new FeatureSelection();
 		featureSelection.chiSquaretest();
-		featureSelection.showTopNtoken(20);
+		featureSelection.showTopNtoken(100);
+		featureSelection.getFeatureSortedTokenSet(100);
+		VectorStatistics.insertVectorList(TokenStatistics.docList);
+		TokenStatistics.insertFeatureSortedTokenStringListToTable();
 	}
 }

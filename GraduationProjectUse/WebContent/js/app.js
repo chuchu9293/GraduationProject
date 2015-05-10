@@ -11,10 +11,10 @@ angular
 					$scope.doc=new Object();
 
 					// 读取收集系统数据库的统计信息
-					$scope.statisticsService = function() {
+					$scope.predictUrlService = function(predictUrl) {
 						$http
 								.get(
-										"/GraduationProjectUse/webService/predictUrlService?url="+$scope.url)
+										"/GraduationProjectUse/webService/predictUrlService?url="+predictUrl)
 								.success(
 										function(data) {
 											if( data.status=="ok"){
@@ -34,11 +34,13 @@ angular
 									console.log(data);
 								});
 					}
-					//WebService返回状态码为错误时的处理
-					$scope.errorDeal(reason){
-						alert(reason);
-					}
-
 				}
+				
 
 		);
+
+//常规js
+
+function  myFileSubmit(){
+	document.getElementById("myFileForm").submit();
+}

@@ -1,15 +1,11 @@
-package com.likeyichu.doc;
+package com.likeyichu.token;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
-public class Term implements Comparable<Term> {
+public class Token implements Comparable<Token> {
 	
 	/**该单词内容*/
 	public String text;
+	
 	/** 包含 该单词且 属于 相关文档的 文档个数*/
 	public int A;
 	/** 包含 该单词且 不属于 相关文档的 文档个数*/
@@ -18,19 +14,19 @@ public class Term implements Comparable<Term> {
 	public int C;
 	/** 不包含 该单词且不 属于 相关文档的 文档个数*/
 	public int D;
+	
 	/**该单词的卡方检验结果*/
 	public double chiSquareValue;
-	/**提取出来的特征单词*/
-	//之所以不用TreeSet，因为要与
-	public static List<String> featureSortedTermList=new ArrayList<String>();
 	
-	public Term(String test){
-		this.text=test;
+	
+	public Token(String str){
+		this.text=str;
 	}
 
-	public int compareTo(Term o) {
+	public int compareTo(Token o) {
 		return (int) (chiSquareValue-o.chiSquareValue);
 	}
+	
 	@Override
 	public String toString(){
 		return new String("text="+text+" ,A="+A+" B="+B+" C="+C+" D="+D+" ,chiSquarevalue:"+chiSquareValue);

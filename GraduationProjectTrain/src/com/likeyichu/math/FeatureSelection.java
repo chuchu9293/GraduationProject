@@ -2,63 +2,69 @@ package com.likeyichu.math;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
+
+import org.apache.log4j.Logger;
 
 import com.likeyichu.doc.Doc;
-import com.likeyichu.doc.DocStatistics;
-import com.likeyichu.doc.Term;
+import com.likeyichu.token.Token;
+import com.likeyichu.token.TokenStatistics;
 
 /** 基于卡方检验的特征选择 */
 public class FeatureSelection {
-	/**结构体Term的List，无重复，从它里面筛选得到特征空间*/
-	private List<Term> termList = new ArrayList<Term>();
+	final static Logger logger = Logger.getLogger(FeatureSelection.class);
+	
+	/**结构体token的List，无重复，有序，从它里面筛选得到特征空间*/
+	private List<Token> tokenList = new ArrayList<Token>();
 
 	/**计算公式为 (AD-BC)*(AD-BC)/((A+B)*(C+D))
 	 * A与B不可能同时为0，但C与D可以同时为0，处理方法为此时返回0
 	 */
 	public void chiSquaretest() {
 		
-		for (String str : DocStatistics.totalTermSet){
-			Term term=new Term(str);
-			calcTermInfo(term);
-			termList.add(term);
+		for (Token token : TokenStatistics.totalTokenSet){
+			calcTokenInfo(token);
+			tokenList.add(token);
 		}
-		Collections.sort(termList,Collections.reverseOrder());//从大到小排序
+		Collections.sort(tokenList,Collections.reverseOrder());//从大到小排序
 	}
-	public void showTopNTerm(int n){
-		if(termList.size()<n)
-			System.out.println("termList.size()<n!");
-		for(int i=0;i<n&&i<termList.size();i++)
-			System.out.println(termList.get(i));
+	public void showTopNtoken(int n){
+		if(tokenList.size()<n)
+			logger.info("tokenList.size()<n!");
+		for(int i=0;i<n&&i<tokenList.size();i++)
+			System.out.println(tokenList.get(i));
 	}
-	public void getFeatureSortedTermSet(int n){
-		for(int i=0;i<n&&i<termList.size();i++)
-			Term.featureSortedTermList.add(termList.get(i).text);
+	public void getFeatureSortedTokenSet(int n){
+		for(int i=0;i<n&&i<tokenList.size();i++)
+			TokenStatistics.featureSortedTokenStringList.add(tokenList.get(i).text);
 	}
-	
-	private void calcTermInfo(Term term) {
-		for (Doc doc : DocStatistics.docList) {
-			if (doc.termSet.contains(term.text)) {
+	//calculate Token's information
+	private void calcTokenInfo(Token token) {
+		for (Doc doc : TokenStatistics.docList) {
+			if (doc.tokenSet.contains(token)) {
 				if (doc.isPositive)
-					term.A++;
+					token.A++;
 				else
-					term.B++;
+					token.B++;
 			}
 		}
-		term.C = DocStatistics.positiveDocNumber - term.A;
-		term.D = DocStatistics.totalDocNumber - DocStatistics.positiveDocNumber
-				- term.B;
-		if (term.C+term.D==0){
-			term.chiSquareValue=0;
+		token.C = TokenStatistics.positiveDocNumber - token.A;
+		token.D = TokenStatistics.totalDocNumber - TokenStatistics.positiveDocNumber
+				- token.B;
+		if (token.C+token.D==0){
+			token.chiSquareValue=0;
 			return ;
 		}
-		term.chiSquareValue = (term.A * term.D - term.B * term.C)
-				* (term.A * term.D - term.B * term.C)
-				/ ((term.A + term.B) * (term.C + term.D));
-		
-
+		token.chiSquareValue = (token.A * token.D - token.B * token.C)
+				* (token.A * token.D - token.B * token.C)
+				/ ((token.A + token.B) * (token.C + token.D));
+	}
+	
+	public static void main(String[] args) {
+		TokenStatistics.generateDocListFromTable();
+		TokenStatistics.getTotalTokenSet();
+		FeatureSelection featureSelection=new FeatureSelection();
+		featureSelection.chiSquaretest();
+		featureSelection.showTopNtoken(20);
 	}
 }

@@ -14,7 +14,7 @@ angular
 					$scope.statisticsService = function() {
 						$http
 								.get(
-										"/GraduationProjectUse/webService/predictUrl?url="+$scope.url)
+										"/GraduationProjectUse/webService/predictUrlService?url="+$scope.url)
 								.success(
 										function(data) {
 											if( data.status=="ok"){

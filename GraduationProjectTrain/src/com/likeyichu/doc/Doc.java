@@ -3,6 +3,7 @@ package com.likeyichu.doc;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -13,6 +14,8 @@ import java.util.Scanner;
 import java.util.Set;
 
 import com.likeyichu.ikanalyzer.AboutIKAnalyzer;
+import com.likeyichu.token.Token;
+import com.likeyichu.token.TokenStatistics;
 
 /**代表着网页中得到的正文文本*/
 public class Doc {
@@ -29,11 +32,14 @@ public class Doc {
 	/**是否为 算法实践 相关文章 */
 	public boolean isPositive=false;
 	
-	/**有序排列的中文分词结果，可以重复 */
-	public List<String> termList=new ArrayList<String>();
+	/**中文分词结果，自然顺序，可以重复 */
+	public List<String> tokenList=new ArrayList<String>();
+	
+	/**数据库中读String恢复为Token。中文分词结果，自然顺序，可以重复 */
+	public List<Token> tokenTokenList=new ArrayList<Token>();
 	
 	/**中文分词结果的set，用于卡方检验中的快速检索*/
-	public Set<String> termSet=new HashSet<String>();
+	public Set<Token> tokenSet=new HashSet<Token>();
 	
 	/**词频的映射,termToFrequencyMap.keySet()为抽样后的特征词*/
 	public Map<String,Integer> termToFrequencyMap=new HashMap<String,Integer>();
@@ -49,15 +55,15 @@ public class Doc {
 		doc.content=webPage.content;
 		doc.isPositive=webPage.isPositive;
 		
-		doc.termList=AboutIKAnalyzer.getTermList(doc.content);
-		doc.termSet.addAll(doc.termList);
+		doc.tokenList=AboutIKAnalyzer.getTokenList(doc.content);
 		return doc;
 	}
+	
 	public List<Double> getFeatureVectorList(){
 		//被除数，除数，特征向量的模  计算用以归一化
 		double dividend=0,divisor,module;
-		for(String str:Term.featureSortedTermList){
-			termToFrequencyMap.put(str,Collections.frequency(termList, str));
+		for(String str:TokenStatistics.featureSortedTokenStringList){
+			termToFrequencyMap.put(str,Collections.frequency(tokenList, str));
 			featureVectorList.add((double)termToFrequencyMap.get(str));
 		}
 		for (Double double1 : featureVectorList) 
@@ -73,8 +79,24 @@ public class Doc {
 		return featureVectorList;
 	}
 	
+	/**
+	 * 数据库中读到的tokenList，由String类型转换为List
+	 * @param str  形如 [你好,哈哈,不错]  符号都为英文
+	 * @return
+	 */
+	public	List<Token> transferTokenListStringToList(String str){
+		List<Token> list=new ArrayList<Token>();
+		//大括号去掉
+		str=str.substring(1,str.length()-1);
+		String[] strArray=str.split(",");
+		for (String string : strArray) {
+			list.add(new Token(string));
+		}
+		return list;
+	}
+	
 	@Override
 	public String toString(){
-		return termSet.toString();
+		return tokenSet.toString();
 	}
 }

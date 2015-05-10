@@ -3,7 +3,6 @@ package com.likeyichu.ikanalyzer;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,7 +14,7 @@ import org.wltea.analyzer.lucene.IKAnalyzer;
 
 public class AboutIKAnalyzer {
 
-	public static List<String> getTermList(String str) throws IOException {
+	public static List<String> getTokenList(String str) throws IOException {
 		List<String> termList = new ArrayList<String>();
 		// 创建分词对象
 		Analyzer anal = new IKAnalyzer(true);
@@ -31,7 +30,7 @@ public class AboutIKAnalyzer {
 		}
 		reader.close();
 		anal.close();
-		Collections.sort(termList);
+		//Collections.sort(termList);
 		return termList;
 	}
 

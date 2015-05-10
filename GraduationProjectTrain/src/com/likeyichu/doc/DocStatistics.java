@@ -1,31 +1,65 @@
 package com.likeyichu.doc;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
+import org.apache.log4j.Logger;
+
+import com.likeyichu.dal.Dao;
 import com.likeyichu.doc.Doc;
+import org.junit.Test;
 
 public class DocStatistics {
+	final static Logger logger = Logger.getLogger(DocStatistics.class);
+	
 	/**文档列表  */
 	public static List<Doc> docList=new  ArrayList<Doc>();
+		
+	//@Test
+	public void  generateDocList(){
+		Dao dao=Dao.getDao();
+		List<WebPage> webPageList;
+		try {
+			webPageList=dao.generateWebPageList();
+		} catch (SQLException e) {
+			logger.error("从数据库中读取所有的数据失败"+e.toString());
+			return;
+		}
+		for (WebPage webPage : webPageList) {
+			try {
+				docList.add(Doc.generateDocFromWebPage(webPage));
+			} catch (IOException e) {
+				logger.error("Doc.generateDocFromWebPage(webPage)失败"+e.toString());
+			}
+		}
+		logger.info("得到文档列表成功");
+	}
 	
-	/** 总文档个数 */
-	public static int totalDocNumber;
 	
-	/** 相关文档个数 */
-	public static int positiveDocNumber;
-	
-	/** 所有的分词结果,有序*/
-	public static Set<String> totalTermSet=new HashSet<String>();
-	
-	public static void getStatistics(){
+	public void insertDocListIntoTokenTable(){
+		Dao dao=Dao.getDao();
 		for (Doc doc : docList) {
 			if(doc.isPositive)
-				positiveDocNumber++;
-			totalTermSet.addAll(doc.termSet);
+				dao.insertPositiveToken(doc.id,doc.title,doc.tokenList.toString());
+			else
+				dao.insertNegativeToken(doc.id,doc.title,doc.tokenList.toString());
 		}
-		totalDocNumber=docList.size();
 	}
+	@Test
+	public void test(){
+		generateDocList();
+		insertDocListIntoTokenTable();
+	}
+	
+	
+	public static void main(String[] args) {
+		DocStatistics docStatistics=new DocStatistics();
+		docStatistics.generateDocList();
+		docStatistics.insertDocListIntoTokenTable();
+		
+	}
+	
+
 }

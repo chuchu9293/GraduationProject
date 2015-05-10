@@ -7,28 +7,76 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.apache.tomcat.jdbc.pool.DataSource;
 
+import com.likeyichu.doc.Doc;
+import com.likeyichu.doc.WebPage;
 import com.likeyichu.spring.AboutSpring;
+import com.likeyichu.token.TokenStatistics;
 
+/**单例模式*/
 public class Dao {
-	static DataSource dataSource;
-	static Connection connection;
 	final static Logger logger = Logger.getLogger(Dao.class);
 	
-	void initDataSource(){
-		dataSource=new AboutSpring().getDataSource();
+	static DataSource dataSource;
+	static Connection connection;
+
+	private static Dao dao=null;
+	
+	/**在私有构造函数中初始化数据库信息，*/
+	private Dao(){
+		if(dataSource==null)
+			dataSource=new AboutSpring().getDataSource();
 	}
-	void checkConnection(){
+	
+	static void checkConnection(){
 		try {
 			if(connection==null||connection.isClosed())
 				connection = dataSource.getConnection();
 		} catch (SQLException e) {
 			logger.error("得到connection失败" + e.toString());
 		}
+	}
+	public static Dao getDao(){
+		if(dao==null)
+			dao=new Dao();
+		return dao;
+	}
+	/**从数据库中读取所有的数据*/
+	public List<WebPage> generateWebPageList() throws SQLException{
+		List<WebPage> webPageList=new ArrayList<WebPage>();
+		checkConnection();
+		Statement sm = connection.createStatement();
+		ResultSet rs = sm.executeQuery("select * from `collect_positive_table`");
+		while(rs.next()){
+			WebPage webPage=new WebPage();
+			webPage.id=rs.getInt("id");
+			webPage.title=rs.getString("title");
+			webPage.content=rs.getString("content");
+			webPage.isPositive=true;
+			webPageList.add(webPage);
+		}
+		rs.close();
+		int positiveNum=webPageList.size();
+		logger.info("从collect_positive_table拿到数据个数："+positiveNum);
+		
+		 rs = sm.executeQuery("select * from `collect_negative_table`");
+			while(rs.next()){
+				WebPage webPage=new WebPage();
+				webPage.id=rs.getInt("id");
+				webPage.title=rs.getString("title");
+				webPage.content=rs.getString("content");
+				webPage.isPositive=false;
+				webPageList.add(webPage);
+			}
+			rs.close();
+			logger.info("从collect_negative_table拿到数据个数："+(webPageList.size()-positiveNum));
+		return webPageList;
 	}
 	public void insertTokenList(int id,String title, String tokenList,boolean isPositive) {
 		if (isPositive)
@@ -48,7 +96,7 @@ public class Dao {
 		return result;
 	}
 	/**positiveToken*/
-	void insertPositiveToken(int id, String title, String tokenList) {
+	public void insertPositiveToken(int id, String title, String tokenList) {
 		checkConnection();
 		String sql = "insert into `token_positive_table` (no,id,title,tokenList,time) values (?,?,?,?,?) ";
 		PreparedStatement ps;
@@ -69,9 +117,9 @@ public class Dao {
 		}
 	}
 	/**negativeToken*/
-	void insertNegativeToken(int id, String title, String tokenList)  {
+	public void insertNegativeToken(int id, String title, String tokenList)  {
 		checkConnection();
-		String sql = "insert into `token_positive_table` (no,id,title,tokenList,time) values (?,?,?,?,?) ";
+		String sql = "insert into `token_negative_table` (no,id,title,tokenList,time) values (?,?,?,?,?) ";
 		PreparedStatement ps;
 
 		DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -138,5 +186,37 @@ public class Dao {
 			logger.error("插入vector_negative_table失败" + e.toString());
 		}
 	}
-
+	
+	public List<Doc>   getDocListFromTokenTable() throws SQLException{
+		 List<Doc> docList =new ArrayList<Doc>();
+		 checkConnection();
+			Statement sm = connection.createStatement();
+			ResultSet rs = sm.executeQuery("select * from `token_positive_table`");
+			while(rs.next()){
+				Doc doc=new Doc();
+				doc.id=rs.getInt("id");
+				doc.title=rs.getString("title");
+				doc.tokenTokenList=doc.transferTokenListStringToList(rs.getString("tokenList"));
+				doc.tokenSet.addAll(doc.tokenTokenList);
+				doc.isPositive=true;
+				docList.add(doc);
+			}
+			rs.close();
+			int positiveNum=docList.size();
+			logger.info("从token_positive_table拿到数据个数："+positiveNum);
+			
+			 rs = sm.executeQuery("select * from `token_negative_table`");
+				while(rs.next()){
+					Doc doc=new Doc();
+					doc.id=rs.getInt("id");
+					doc.title=rs.getString("title");
+					doc.tokenTokenList=doc.transferTokenListStringToList(rs.getString("tokenList"));
+					doc.tokenSet.addAll(doc.tokenTokenList);
+					doc.isPositive=false;
+					docList.add(doc);
+				}
+				rs.close();
+				logger.info("从token_negative_table拿到数据个数："+(docList.size()-positiveNum));
+		 return docList;
+	}
 }

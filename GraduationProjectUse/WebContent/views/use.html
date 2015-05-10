@@ -39,41 +39,89 @@
 			</div>
 
 			<ul class="nav navbar-nav navbar-right">
-				 <li ><a href="index.html">说明 </a></li>
-         <li class="active"><a href="collect.html">判别</a></li>
+				<li><a href="index.html">说明 </a></li>
+				<li class="active"><a href="collect.html">判别</a></li>
 			</ul>
 
 		</div>
 	</nav>
-	<div ng-app="myApp" ng-controller="appController">
-		<!-- 嵌套提交表单页面 -->
-	<iframe src="upLoad.html"></iframe>
 	<div>
-	<button ng-click='resultService()'>查看结果</button>
+		<!-- 按钮触发模态框 -->
+		您可以&nbsp;
+		<button class="btn btn-primary btn-lg" data-toggle="modal"
+			data-target="#myModal">判断本地网页文件</button>
+			&nbsp;也可以&nbsp;
+			<button class="btn btn-primary btn-lg" data-toggle="modal"
+			data-target="#myModal2">判断URL</button>
 	</div>
-	<h2>url</h2>
-	<div id="url">
-	{{collectObj.url}}
-	</div>
-	<h2>标题</h2>
-	<div id="title">
-	{{doc.title}}
-	</div>
-	<h2>正文内容</h2>
-	<div id="content">
-	{{doc.content}}
-	</div>
-	<h2>分词结果及词频统计</h2>
-	<div id="content">
-	{{doc.token}}
-	</div>
-	<h2>计算得到特征向量</h2>
-	<div id="content">
-	{{doc.vector}}
-	</div>
+	<div ng-app="myApp" ng-controller="appController">
+
+		
+		<div>
+		<hr>
+			<button ng-click='resultService()'>查看结果</button>
+			<hr>
+		</div>
+		
+		<h2>url</h2>
+		<div id="url">{{collectObj.url}}</div>
+		<h2>标题</h2>
+		<div id="title">{{doc.title}}</div>
+		<h2>正文内容</h2>
+		<div id="content">{{doc.content}}</div>
+		<h2>分词结果及词频统计</h2>
+		<div id="content">{{doc.token}}</div>
+		<h2>计算得到特征向量</h2>
+		<div id="content">{{doc.vector}}</div>
+
+	
+	<!-- 模态框（Modal） -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<form id="myFileForm" action="/GraduationProjectUse/myServlet"
+						method="post" enctype="multipart/form-data">
+						上传文件： <input type="file" name='fileName' />
+					</form>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+					</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						onclick="myFileSubmit()">提交文件</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal -->
 	</div>
 	
+	<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
 
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					输入Url：<input type="text" ng-model="predictUrl"></input>
+					
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+					</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal"
+						ng-click='predictUrlService(predictUrl)'>提交Url</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal -->
+	</div>
+	</div>
 	<div class="myfooter">
 		&copy;2015&nbsp;<span class="text">yichu</span>
 		&nbsp;|&nbsp;沪ICP备15017991号

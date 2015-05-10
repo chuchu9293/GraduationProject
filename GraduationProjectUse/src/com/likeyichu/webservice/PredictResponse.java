@@ -1,6 +1,6 @@
 package com.likeyichu.webservice;
 
-public class UrlResponse {
+public class PredictResponse {
 	private String url;
 	private String title;
 	private String content;

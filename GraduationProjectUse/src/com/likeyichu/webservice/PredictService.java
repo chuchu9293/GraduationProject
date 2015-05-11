@@ -23,13 +23,17 @@ import com.likeyichu.use.SVMUse;
 @Path("predictService")
 public class PredictService {
 	private Logger logger=Logger.getLogger(PredictService.class);
+	public static 	ContentDeal contentDeal=new ContentDeal();
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public PredictResponse fun() throws IOException {
+	public PredictResponse fun()  {
 		logger.info("web请求结果");
-		//TODO
+		//Jsoup->IKAnalyzer->featureList
+		contentDeal.deal();
 		PredictResponse response=new PredictResponse();
-		
+		SVMUse sVmUse=new SVMUse();
+		//将文档信息与预测结果拼装成返回结果
+		response.calcInfo(contentDeal.doc, sVmUse.predict(contentDeal.doc.featureVectorList));
 		response.setStatus("ok");
 		return response;
 	}
@@ -39,7 +43,8 @@ public class PredictService {
 	@Produces(MediaType.TEXT_PLAIN)
 	public String fun2(@QueryParam("url") String url){
 		logger.info("请求判断的url是："+url);
-		//TODO
+		contentDeal.url=url;
+		contentDeal.isUrl=true;
 		return "ok";
 	}
 }

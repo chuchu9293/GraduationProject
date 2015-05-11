@@ -1,20 +1,28 @@
 package com.likeyichu.webservice;
 
+import com.likeyichu.doc.Doc;
+import com.likeyichu.use.PredictResult;
+
 public class PredictResponse {
-	private String url;
 	private String title;
 	private String content;
 	private String token;
 	private String vector;
+	
 	private String result;
 	private String degree;
+	
 	private String status;
 	
-	public String getUrl() {
-		return url;
-	}
-	public void setUrl(String url) {
-		this.url = url;
+	
+	public void calcInfo(Doc doc,PredictResult predictResult){
+		title=doc.title;
+		content=doc.content;
+		token=doc.tokenList.toString();
+		vector=doc.featureVectorList.toString();
+		
+		result=predictResult.isPositive?"是":"否";
+		degree=String.valueOf(predictResult.degree);
 	}
 	public String getToken() {
 		return token;

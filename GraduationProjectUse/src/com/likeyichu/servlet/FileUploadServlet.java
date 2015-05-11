@@ -16,6 +16,9 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 
+import com.likeyichu.use.PredictResult;
+import com.likeyichu.webservice.PredictService;
+
 
 /**
  * Servlet implementation class FileUpload
@@ -44,9 +47,10 @@ public class FileUploadServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		try {
 			File htmlFile=dealUploadFile(request);
+			PredictService.contentDeal.filePath=htmlFile.getAbsolutePath();
+			PredictService.contentDeal.isUrl=false;
 		} catch (Exception e) {
 			 logger.error("获取上传文件失败"+e.toString());
 		}

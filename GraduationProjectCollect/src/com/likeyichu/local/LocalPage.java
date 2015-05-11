@@ -34,6 +34,9 @@ public class LocalPage implements Runnable{
 	Queue<LocalPage> localPageQueue;
 	
 	public LocalPage(){
+	
+	}
+	public void initDataSource(){
 		if (dao.getDataSource() == null) {
 			ApplicationContext ctx = new FileSystemXmlApplicationContext(
 					"src/com/likeyichu/local/beans.xml");
@@ -120,7 +123,7 @@ public class LocalPage implements Runnable{
 
 	public static void main(String[] args) {
 		LocalPage localPage = new LocalPage();
-		
+		localPage.initDataSource();
 		ExecutorService executorService= Executors.newCachedThreadPool();
 		executorService.submit(localPage);
 		logger.info("executorService.submit(new LocalPage(localPageQueue));");

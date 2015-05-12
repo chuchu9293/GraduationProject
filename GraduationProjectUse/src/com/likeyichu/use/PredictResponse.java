@@ -1,7 +1,7 @@
-package com.likeyichu.webservice;
+package com.likeyichu.use;
 
 import com.likeyichu.doc.Doc;
-import com.likeyichu.use.PredictResult;
+import com.likeyichu.train.libsvm.PredictResult;
 
 public class PredictResponse {
 	private String title;

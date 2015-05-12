@@ -238,4 +238,26 @@ public class Dao {
 				logger.error("插入non_relational_table失败" + e.toString());
 			}
 	}
+	
+	/**数据库中读取训练集数据
+	 * @throws SQLException */
+	public void transformVectorListFromTable(List<String> positiveList,List<String> negativeList) throws SQLException{
+		 checkConnection();
+			Statement sm = connection.createStatement();
+			ResultSet rs = sm.executeQuery("select vector from `vector_positive_table`");
+			while(rs.next()){
+				String str=rs.getString("vector");
+				positiveList.add(str);
+			}
+			rs.close();
+			logger.info("从vector_positive_table拿到数据个数："+positiveList.size());
+			
+			 rs = sm.executeQuery("select * from `vector_negative_table`");
+				while(rs.next()){
+					String str=rs.getString("vector");
+					negativeList.add(str);
+				}
+				rs.close();
+				logger.info("从vector_negative_table拿到数据个数："+negativeList.size());
+	}
 }

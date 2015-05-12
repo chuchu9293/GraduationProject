@@ -58,6 +58,12 @@
 				<version>4.10.3</version>
 			</dependency>
 			
+			<dependency>
+				<groupId>tw.edu.ntu.csie</groupId>
+				<artifactId>libsvm</artifactId>
+				<version>3.17</version>
+			</dependency>
+			
 			
 		</dependencies>
 	</dependencyManagement>

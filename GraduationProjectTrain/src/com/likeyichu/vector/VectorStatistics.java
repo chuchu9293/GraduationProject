@@ -13,9 +13,9 @@ public class VectorStatistics {
 		for (Doc doc : docList) {
 			doc.getFeatureVectorList();
 			if(doc.isPositive)
-				dao.insertVectorList(doc.id, doc.title, doc.getFeatureVectorList().toString(),true);
+				dao.insertVectorList(doc.id, doc.title, doc.featureVectorList.toString(),true);
 			else
-				dao.insertVectorList(doc.id, doc.title,  doc.getFeatureVectorList().toString(),false);
+				dao.insertVectorList(doc.id, doc.title,  doc.featureVectorList.toString(),false);
 		}
 		
 	}

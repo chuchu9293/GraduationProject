@@ -53,5 +53,4 @@ public class TokenStatistics {
 		Dao dao=Dao.getDao();
 		dao.insertFeatureSortedTokenStringListToTable(featureSortedTokenStringList);
 	}
-	
 }

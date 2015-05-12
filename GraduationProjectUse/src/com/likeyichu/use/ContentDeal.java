@@ -14,6 +14,7 @@ import com.likeyichu.ikanalyzer.AboutIKAnalyzer;
 import com.likeyichu.jsoup.AboutJsoup;
 import com.likeyichu.local.LocalPage;
 import com.likeyichu.token.TokenStatistics;
+import com.likeyichu.train.libsvm.PredictResult;
 
 public class ContentDeal {
 	final static Logger logger = Logger.getLogger(ContentDeal.class);
@@ -40,6 +41,7 @@ public class ContentDeal {
 			LocalPage localPage=AboutJsoup.getLocalPage(new File(filePath));
 			doc.title=localPage.title;
 			doc.content=localPage.content;
+			
 		} catch (IOException e) {
 			logger.error("fileDeal() error"+e.toString());
 		}

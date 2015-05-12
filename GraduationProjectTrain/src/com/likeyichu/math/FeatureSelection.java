@@ -36,6 +36,7 @@ public class FeatureSelection {
 			System.out.println(tokenList.get(i));
 	}
 	public void getFeatureSortedTokenSet(int n){
+		TokenStatistics.featureSortedTokenStringList.clear();
 		for(int i=0;i<n&&i<tokenList.size();i++)
 			TokenStatistics.featureSortedTokenStringList.add(tokenList.get(i).text);
 	}
@@ -67,9 +68,10 @@ public class FeatureSelection {
 		TokenStatistics.getTotalTokenSet();
 		FeatureSelection featureSelection=new FeatureSelection();
 		featureSelection.chiSquaretest();
-		featureSelection.showTopNtoken(100);
-		featureSelection.getFeatureSortedTokenSet(100);
-		VectorStatistics.insertVectorList(TokenStatistics.docList);
+		featureSelection.showTopNtoken(10);
+		featureSelection.getFeatureSortedTokenSet(1000);
+	
 		TokenStatistics.insertFeatureSortedTokenStringListToTable();
+		VectorStatistics.insertVectorList(TokenStatistics.docList);
 	}
 }

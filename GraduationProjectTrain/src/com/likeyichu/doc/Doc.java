@@ -60,12 +60,12 @@ public class Doc {
 	}
 
 	void transformTokenListToTokenStringList() {
-		//Use阶段会复用
-		if (tokenList.size() == 0) {
-			tokenList.clear();
-			for (Token token : tokenTokenList) {
-				tokenList.add(token.text);
-			}
+		//USE模块会复用
+		if(tokenTokenList==null||tokenTokenList.size()==0)
+			return;
+		tokenList.clear();
+		for (Token token : tokenTokenList) {
+			tokenList.add(token.text);
 		}
 	}
 

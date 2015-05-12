@@ -260,4 +260,5 @@ public class Dao {
 				rs.close();
 				logger.info("从vector_negative_table拿到数据个数："+negativeList.size());
 	}
+	
 }

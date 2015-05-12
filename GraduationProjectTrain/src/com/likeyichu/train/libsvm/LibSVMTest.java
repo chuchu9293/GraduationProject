@@ -14,7 +14,7 @@ public class LibSVMTest {
         String[] testArgs = {"-b","1","d:/libsvm/breast-cancer.predict.txt", "d:/libsvm/breast-cancer.model", "d:/libsvm/breast-cancer.predict.result.txt"};
         svm_predict.main(testArgs);  
     }  
-    @Test
+    //@Test
     public void scaleTest() {
     	String[] scaleArgs = {"-s","d:/libsvm/breast-cancer.train.scale.txt","d:/libsvm/breast-cancer.train.txt"};
     	try {
@@ -23,5 +23,16 @@ public class LibSVMTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+    }
+    @Test
+    public void test() 
+    {
+    	 String[] testArgs = {"-b","1","d:/libsvm/gp.predict.txt", "d:/libsvm/gp.model", "d:/libsvm/gp.predict.result.txt"};
+    	 try {
+			svm_predict.main(testArgs);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
     }
 }  

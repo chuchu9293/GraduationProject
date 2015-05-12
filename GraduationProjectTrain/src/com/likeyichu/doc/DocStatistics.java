@@ -53,7 +53,7 @@ public class DocStatistics {
 		insertDocListIntoTokenTable();
 	}
 	
-	
+	/**读collect表，写token表*/
 	public static void main(String[] args) {
 		DocStatistics docStatistics=new DocStatistics();
 		docStatistics.generateDocList();

@@ -21,7 +21,7 @@ public class PredictResponse {
 		token=doc.tokenList.toString();
 		vector=doc.featureVectorList.toString();
 		
-		result=predictResult.isPositive?"是":"否";
+		result=predictResult.isPositive?"yes":"no";
 		degree=String.valueOf(predictResult.degree);
 	}
 	public String getToken() {

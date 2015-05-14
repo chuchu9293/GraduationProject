@@ -208,7 +208,7 @@ public class Dao {
 			rs.close();
 			int positiveNum=docList.size();
 			logger.info("从token_positive_table拿到数据个数："+positiveNum);
-			
+			sm = connection.createStatement();
 			 rs = sm.executeQuery("select * from `token_negative_table`");
 				while(rs.next()){
 					Doc doc=new Doc();
@@ -248,8 +248,11 @@ public class Dao {
 	public void transformVectorListFromTable(List<String> positiveList,List<String> negativeList) throws SQLException{
 		 checkConnection();
 			Statement sm = connection.createStatement();
-			ResultSet rs = sm.executeQuery("select vector from `vector_positive_table`");
+			sm.setQueryTimeout(60*10);
+			ResultSet rs = sm.executeQuery("select vector from `vector_positive_table` limit 0,1000");
+			 int i=0;
 			while(rs.next()){
+				System.out.println(i++);
 				String str=rs.getString("vector");
 				positiveList.add(str);
 			}
@@ -257,7 +260,9 @@ public class Dao {
 			logger.info("从vector_positive_table拿到数据个数："+positiveList.size());
 			
 			 rs = sm.executeQuery("select * from `vector_negative_table`");
+			
 				while(rs.next()){
+					System.out.println(i++);
 					String str=rs.getString("vector");
 					negativeList.add(str);
 				}

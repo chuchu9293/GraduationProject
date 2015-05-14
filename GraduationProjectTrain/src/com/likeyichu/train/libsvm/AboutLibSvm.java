@@ -69,6 +69,7 @@ public class AboutLibSvm {
 			fw.write(addLabel(string,false));
 		}
 		fw.close();
+		logger.info("写入  d:/libsvm/gp.train.txt 成功");
 		} catch (IOException e) {
 			logger.error("写入 d:/libsvm/gp.train.txt  失败"+e.toString());
 		}

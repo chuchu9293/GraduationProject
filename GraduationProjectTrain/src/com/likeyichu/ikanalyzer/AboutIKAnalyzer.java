@@ -13,9 +13,11 @@ import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 import org.wltea.analyzer.lucene.IKAnalyzer;
 
 public class AboutIKAnalyzer {
-
+	
 	public static List<String> getTokenList(String str) throws IOException {
 		List<String> termList = new ArrayList<String>();
+		if(str==null||str.length()==0)
+			return termList;
 		// 创建分词对象
 		Analyzer anal = new IKAnalyzer(true);
 		StringReader reader = new StringReader(str);

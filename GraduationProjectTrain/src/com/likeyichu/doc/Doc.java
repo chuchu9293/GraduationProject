@@ -51,8 +51,8 @@ public class Doc {
 			throws IOException {
 		Doc doc = new Doc();
 		doc.id = webPage.id;
-		doc.title = webPage.title;
-		doc.content = webPage.content;
+		doc.title = webPage.title==null?"无标题": webPage.title;
+		doc.content = webPage.content==null?"无内容": webPage.content;
 		doc.isPositive = webPage.isPositive;
 
 		doc.tokenList = AboutIKAnalyzer.getTokenList(doc.content);

@@ -19,7 +19,7 @@ public class Train {
 	
 	/**读token表，写non_relational_table,读token表，写vector表*/
 	public static void main(String[] args) {
-		//FeatureSelection.main(null);
+		FeatureSelection.main(null);
 		AboutLibSvm.transformVectorListFromTableToFile();
 		try {
 			AboutLibSvm.train();

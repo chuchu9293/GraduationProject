@@ -52,20 +52,24 @@ public class Dao {
 		List<WebPage> webPageList=new ArrayList<WebPage>();
 		checkConnection();
 		Statement sm = connection.createStatement();
-		ResultSet rs = sm.executeQuery("select * from `collect_positive_table`");
-		while(rs.next()){
-			WebPage webPage=new WebPage();
-			webPage.id=rs.getInt("id");
-			webPage.title=rs.getString("title");
-			webPage.content=rs.getString("content");
-			webPage.isPositive=true;
-			webPageList.add(webPage);
-		}
-		rs.close();
+		int i=0;
+			//ResultSet rs1 = sm.executeQuery("select * from `collect_positive_table` where no between 1 and 100");//2000条数据时，这里会耗时100秒
+		ResultSet rs1 = sm.executeQuery("select * from `collect_positive_table` ");//2000条数据时，这里会耗时100秒
+			while(rs1.next()){
+				WebPage webPage=new WebPage();
+				webPage.id=rs1.getInt("id");
+				webPage.title=rs1.getString("title");
+				webPage.content=rs1.getString("content");
+				webPage.isPositive=true;
+				webPageList.add(webPage);
+				System.out.println(i++);
+			}
+			rs1.close();
+		
 		int positiveNum=webPageList.size();
 		logger.info("从collect_positive_table拿到数据个数："+positiveNum);
-		
-		 rs = sm.executeQuery("select * from `collect_negative_table`");
+		sm = connection.createStatement();
+		ResultSet rs = sm.executeQuery("select * from `collect_negative_table`");
 			while(rs.next()){
 				WebPage webPage=new WebPage();
 				webPage.id=rs.getInt("id");

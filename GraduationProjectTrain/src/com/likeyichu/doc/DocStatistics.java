@@ -23,7 +23,7 @@ public class DocStatistics {
 		List<WebPage> webPageList;
 		try {
 			webPageList=dao.generateWebPageList();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			logger.error("从数据库中读取所有的数据失败"+e.toString());
 			return;
 		}

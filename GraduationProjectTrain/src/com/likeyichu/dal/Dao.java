@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
 import org.apache.tomcat.jdbc.pool.DataSource;
@@ -18,12 +19,13 @@ import com.likeyichu.doc.Doc;
 import com.likeyichu.doc.WebPage;
 import com.likeyichu.spring.AboutSpring;
 import com.likeyichu.token.TokenStatistics;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 /**单例模式*/
 public class Dao {
 	final static Logger logger = Logger.getLogger(Dao.class);
 	
-	static DataSource dataSource;
+	static ComboPooledDataSource dataSource;
 	static Connection connection;
 
 	private static Dao dao=null;
@@ -53,8 +55,7 @@ public class Dao {
 		checkConnection();
 		Statement sm = connection.createStatement();
 		int i=0;
-			//ResultSet rs1 = sm.executeQuery("select * from `collect_positive_table` where no between 1 and 100");//2000条数据时，这里会耗时100秒
-		ResultSet rs1 = sm.executeQuery("select * from `collect_positive_table` ");//2000条数据时，这里会耗时100秒
+		ResultSet rs1 = sm.executeQuery("select * from `collect_positive_table` ");//1700条数据时，这里会耗时100秒
 			while(rs1.next()){
 				WebPage webPage=new WebPage();
 				webPage.id=rs1.getInt("id");
@@ -62,7 +63,7 @@ public class Dao {
 				webPage.content=rs1.getString("content");
 				webPage.isPositive=true;
 				webPageList.add(webPage);
-				System.out.println(i++);
+				System.out.println(++i);
 			}
 			rs1.close();
 		
@@ -143,6 +144,7 @@ public class Dao {
 	}
 	
 	public void insertVectorList(int id,String title, String vectorList,boolean isPositive) {
+		checkConnection();
 		if (isPositive)
 			insertPositiveVectorList(id, title, vectorList);
 		else
@@ -249,7 +251,7 @@ public class Dao {
 		 checkConnection();
 			Statement sm = connection.createStatement();
 			sm.setQueryTimeout(60*10);
-			ResultSet rs = sm.executeQuery("select vector from `vector_positive_table` limit 0,1000");
+			ResultSet rs = sm.executeQuery("select vector from `vector_positive_table`");
 			 int i=0;
 			while(rs.next()){
 				System.out.println(i++);

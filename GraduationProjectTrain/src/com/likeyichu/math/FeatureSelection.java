@@ -37,8 +37,11 @@ public class FeatureSelection {
 	}
 	public void getFeatureSortedTokenSet(int n){
 		TokenStatistics.featureSortedTokenStringList.clear();
-		for(int i=0;i<n&&i<tokenList.size();i++)
-			TokenStatistics.featureSortedTokenStringList.add(tokenList.get(i).text);
+		for(int i=0;i<n&&i<tokenList.size();i++){
+			if(!TokenStatistics.featureSortedTokenStringList.contains(tokenList.get(i).text))
+				TokenStatistics.featureSortedTokenStringList.add(tokenList.get(i).text);
+		}
+		System.out.println(TokenStatistics.featureSortedTokenStringList.size());
 	}
 	//calculate Token's information
 	private void calcTokenInfo(Token token) {

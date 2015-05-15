@@ -42,9 +42,12 @@ public class TokenStatistics {
 	}
 	
 	public static void getTotalTokenSet(){
+		int i=0;
 		for (Doc doc : docList) {
 			totalTokenSet.addAll(doc.tokenTokenList);
+			i+=doc.tokenTokenList.size();
 		}
+		System.out.println(i);
 		logger.info("得到的totalTokenSet.size()="+totalTokenSet.size());
 	}
 	

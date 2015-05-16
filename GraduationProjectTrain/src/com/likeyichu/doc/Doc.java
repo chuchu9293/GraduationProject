@@ -65,7 +65,7 @@ public class Doc {
 			return;
 		tokenList.clear();
 		for (Token token : tokenTokenList) {
-			tokenList.add(token.text);
+			tokenList.add(token.text.trim());
 		}
 	}
 
@@ -103,7 +103,7 @@ public class Doc {
 		str = str.substring(1, str.length() - 1);
 		String[] strArray = str.split(",");
 		for (String string : strArray) {
-			list.add(new Token(string));
+			list.add(new Token(string.trim()));
 		}
 		return list;
 	}

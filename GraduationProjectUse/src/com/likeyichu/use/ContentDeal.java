@@ -58,7 +58,8 @@ public class ContentDeal {
 		} catch (IOException e) {
 			logger.error("AboutIKAnalyzer.getTokenList(doc.content) error"+e.toString());
 		}
-		generateFeatureTokenStringListFromTable();
+		if(TokenStatistics.featureSortedTokenStringList==null||TokenStatistics.featureSortedTokenStringList.size()<1)
+			generateFeatureTokenStringListFromTable();
 		doc.getFeatureVectorList();
 	}
 	
@@ -77,7 +78,7 @@ public class ContentDeal {
 		str=str.substring(1,str.length()-1);
 		String[] strArray=str.split(",");
 		for (String string : strArray) 
-			list.add(string);
+			list.add(string.trim());
 		TokenStatistics.featureSortedTokenStringList=list;
 	}
 }

@@ -7,7 +7,7 @@ angular
 				function($scope, $http) {
 
 					// 待判断网页url默认值
-					$scope.url = "http://blog.csdn.net/chuchus/article/details/23205283";
+					$scope.predictUrl = "http://blog.csdn.net/chuchus/article/details/23205283";
 					$scope.doc=new Object();
 
 					// 设置待判断的url

@@ -28,7 +28,7 @@ public class AboutIKAnalyzer {
 		// 遍历分词数据
 		while (ts.incrementToken()) {
 			if (isChineseChar2(term.toString()))//只关注中文
-				termList.add(term.toString());
+				termList.add(term.toString().trim());//去掉前导、后置空格
 		}
 		reader.close();
 		anal.close();

@@ -133,6 +133,6 @@ public class LocalPage implements Runnable{
 
 	@Override
 	public void run() {
-		insertPositiveLocalBatch();
+		//insertPositiveLocalBatch();
 	}
 }

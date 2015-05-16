@@ -25,7 +25,7 @@ public class Token implements Comparable<Token> {
 	
 	
 	public Token(String str){
-		this.text=str;
+		this.text=str.trim();
 	}
 
 	public int compareTo(Token o) {

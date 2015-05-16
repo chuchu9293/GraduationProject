@@ -271,5 +271,26 @@ public class Dao {
 				rs.close();
 				logger.info("从vector_negative_table拿到数据个数："+negativeList.size());
 	}
-	
+	public static void main(String[] args) throws SQLException {
+		Dao dao=Dao.getDao();
+		dao.checkConnection();
+		String sql = "insert into `collect_negative_table` (no,id,title,isURL,URL,isLocal,content,time) values (?,?,?,?,?,?,?,?) ";
+		int i=31;
+		PreparedStatement ps = dao.connection.prepareStatement(sql);
+		Statement sm=dao.connection.createStatement();
+		ResultSet rs=sm.executeQuery("select * from `collect_negative_table_copy` limit 700,1670");
+		while(rs.next()){
+			ps.setInt(1, i++);
+			ps.setInt(2, Integer.valueOf(rs.getString("id")));
+			ps.setString(3, rs.getString("title"));
+			ps.setBoolean(4, true);
+			ps.setString(5, rs.getString("URL"));
+			ps.setBoolean(6, false);
+			ps.setString(7, rs.getString("content"));
+			ps.setString(8, rs.getString("time"));
+			ps.execute();
+		}
+		ps.close();
+		
+	}
 }

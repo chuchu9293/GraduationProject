@@ -47,7 +47,7 @@ public class TokenStatistics {
 			totalTokenSet.addAll(doc.tokenTokenList);
 			i+=doc.tokenTokenList.size();
 		}
-		System.out.println(i);
+		System.out.println("所有词语个数（含重复）:"+i);
 		logger.info("得到的totalTokenSet.size()="+totalTokenSet.size());
 	}
 	

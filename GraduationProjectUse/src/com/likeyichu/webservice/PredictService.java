@@ -15,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 import org.apache.log4j.Logger;
 
 import com.likeyichu.doc.Doc;
+import com.likeyichu.ikanalyzer.AboutIKAnalyzer;
 import com.likeyichu.jsoup.AboutJsoup;
 import com.likeyichu.token.TokenStatistics;
 import com.likeyichu.train.libsvm.PredictResult;
@@ -63,6 +64,7 @@ public class PredictService {
 			doc=new Doc();sb=new StringBuilder();
 			try{
 			doc.content=AboutJsoup.getTextFromURL(url, sb);
+			doc.tokenList=AboutIKAnalyzer.getTokenList(	doc.content);
 			}catch(IOException e){
 				doc.content="无内容";
 			}
@@ -79,7 +81,7 @@ public class PredictService {
 			if(!predictResultList.get(i).isPositive && req.getLabelList().get(i)==-1)
 				right++;
 		}
-		double accuracy=right/req.getLabelList().size();
+		double accuracy=(double)(right)/req.getLabelList().size();
 		logger.info("预测的准确性为，"+accuracy);
 	}
 }

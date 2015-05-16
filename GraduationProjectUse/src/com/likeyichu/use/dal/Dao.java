@@ -79,12 +79,10 @@ public class Dao implements BeanFactoryAware {
 	public void acuracyTest(	List<String> urlList,	List<Integer> labelList) throws SQLException{
 		checkConnection();
 		Statement sm = connection.createStatement();
-		ResultSet rs = sm.executeQuery("select URL from `collect_positive_table` limit 0,20");
 		while(rs.next()){
 			urlList.add(rs.getString("URL"));
 			labelList.add(1);
 		}
-		rs = sm.executeQuery("select URL from `collect_negative_table` limit 0,20");
 		while(rs.next()){
 			urlList.add(rs.getString("URL"));
 			labelList.add(-1);

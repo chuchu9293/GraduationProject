@@ -64,7 +64,7 @@ public class ContentDeal {
 	}
 	
 	/**从数据库中读取特征空间，赋值给TokenStatistics.featureSortedTokenStringList*/
-	void generateFeatureTokenStringListFromTable(){
+	public static void generateFeatureTokenStringListFromTable(){
 		Dao dao=Dao.getDao();
 		List<String> list=new ArrayList<String>();
 		String str;

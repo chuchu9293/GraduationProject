@@ -1,6 +1,12 @@
 package com.likeyichu.webservice;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -8,6 +14,10 @@ import javax.ws.rs.core.MediaType;
 
 import org.apache.log4j.Logger;
 
+import com.likeyichu.doc.Doc;
+import com.likeyichu.jsoup.AboutJsoup;
+import com.likeyichu.token.TokenStatistics;
+import com.likeyichu.train.libsvm.PredictResult;
 import com.likeyichu.use.ContentDeal;
 import com.likeyichu.use.PredictResponse;
 import com.likeyichu.use.SVMUse;
@@ -39,5 +49,37 @@ public class PredictService {
 		contentDeal.url=url;
 		contentDeal.isUrl=true;
 		return "ok";
+	}
+	
+	
+	@Path("predictUrlList")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	//@Produces(MediaType.APPLICATION_JSON)
+	public void fun3(predictUrlListRequest  req) throws IOException{
+		Doc doc;StringBuilder sb;
+		List<List<Double>> vectorListList=new ArrayList<List<Double>>();
+		for (String url  : req.getUrlList()) {
+			doc=new Doc();sb=new StringBuilder();
+			try{
+			doc.content=AboutJsoup.getTextFromURL(url, sb);
+			}catch(IOException e){
+				doc.content="无内容";
+			}
+			doc.title=sb.toString();
+			if(TokenStatistics.featureSortedTokenStringList==null||TokenStatistics.featureSortedTokenStringList.size()<1)
+				ContentDeal.generateFeatureTokenStringListFromTable();
+			vectorListList.add(doc.getFeatureVectorList());
+		}
+		List<PredictResult> predictResultList= SVMUse.predictBatch(vectorListList,req.getLabelList());
+		int right=0;
+		for(int i=0;i<req.getLabelList().size();i++){
+			if(predictResultList.get(i).isPositive && req.getLabelList().get(i)==1)
+				right++;
+			if(!predictResultList.get(i).isPositive && req.getLabelList().get(i)==-1)
+				right++;
+		}
+		double accuracy=right/req.getLabelList().size();
+		logger.info("预测的准确性为，"+accuracy);
 	}
 }

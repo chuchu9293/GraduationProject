@@ -1,5 +1,6 @@
 package com.likeyichu.use.dal;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,15 +21,18 @@ import org.springframework.stereotype.Component;
 
 import com.likeyichu.doc.Doc;
 import com.likeyichu.doc.WebPage;
-import com.likeyichu.spring.AboutSpring;
 import com.likeyichu.token.TokenStatistics;
+import com.likeyichu.use.spring.AboutSpring;
+import com.likeyichu.webservice.PredictService;
+import com.likeyichu.webservice.predictUrlListRequest;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 /**单例模式*/
 @Component
 public class Dao implements BeanFactoryAware { 
 	final static Logger logger = Logger.getLogger(Dao.class);
 	
-	static DataSource dataSource;
+	public static 	 ComboPooledDataSource dataSource;
 	static Connection connection;
 
 	private static Dao dao=null;
@@ -67,8 +71,25 @@ public class Dao implements BeanFactoryAware {
 
 	@Override
 	public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
-		dataSource = beanFactory.getBean("dataSource", DataSource.class);
+		dataSource = beanFactory.getBean("dataSource", 	 ComboPooledDataSource.class);
 		logger.info("setBeanFactory被触发，得到bean：dataSource");
 	
 	}
+	
+	public void acuracyTest(	List<String> urlList,	List<Integer> labelList) throws SQLException{
+		checkConnection();
+		Statement sm = connection.createStatement();
+		ResultSet rs = sm.executeQuery("select URL from `collect_positive_table` limit 0,20");
+		while(rs.next()){
+			urlList.add(rs.getString("URL"));
+			labelList.add(1);
+		}
+		rs = sm.executeQuery("select URL from `collect_negative_table` limit 0,20");
+		while(rs.next()){
+			urlList.add(rs.getString("URL"));
+			labelList.add(-1);
+		}
+	}
+	
+	
 }

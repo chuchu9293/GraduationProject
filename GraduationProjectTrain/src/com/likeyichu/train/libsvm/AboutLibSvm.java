@@ -50,6 +50,7 @@ public class AboutLibSvm {
 		return pr;
 	}
 
+
 	/** 数据库中读取训练集数据,保存为svm可读的格式 */
 	public static void transformVectorListFromTableToFile() {
 		Dao dao = Dao.getDao();

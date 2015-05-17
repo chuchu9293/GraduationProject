@@ -17,7 +17,7 @@ public class Spider {
 	List<String> urlList=new ArrayList<String>();
 	int hasRead=0;
 	int unread=0;
-	int threshold=100;
+	int threshold=20;
 	int workIndex=0;
 
 	public String getInitialUrl() {
@@ -25,13 +25,13 @@ public class Spider {
 	}
 	public void setInitialUrl(String initialUrl) {
 		this.initialUrl = initialUrl;
+		urlList.clear();
+		hasRead=unread=workIndex=0;
 		urlList.add(initialUrl);
 		work();
 	}
 	void work(){
 		while(unread<threshold){
-			if(workIndex>=urlList.size())
-				workIndex--;
 			getUrl(urlList.get(workIndex++));
 		}
 	}

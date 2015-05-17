@@ -28,7 +28,7 @@ public class Dao implements BeanFactoryAware {
 	private static DataSource dataSource;
 	
 	private static Connection connection;
-	private static Set<String> urlSet = new HashSet<String>();
+	public  static Set<String> urlSet = new HashSet<String>();
 
 	@Override
 	public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
@@ -69,6 +69,7 @@ public class Dao implements BeanFactoryAware {
 		while (rs.next()) {
 			urlSet.add(rs.getString("URL"));
 		}
+		logger.info("urlSet的尺寸为"+urlSet.size());
 		rs.close();
 	}
 
@@ -104,6 +105,7 @@ public class Dao implements BeanFactoryAware {
 		// 若有重复url，不予插入
 		if (urlSet.contains(url))
 			return -1;
+		urlSet.add(url);
 		try {
 			id=maxId()+1;
 		} catch (SQLException e) {

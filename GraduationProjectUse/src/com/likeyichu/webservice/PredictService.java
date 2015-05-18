@@ -56,9 +56,19 @@ public class PredictService {
 	@Path("predictUrlList")
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	//@Produces(MediaType.APPLICATION_JSON)
-	public void fun3(predictUrlListRequest  req) throws IOException{
+	@Produces(MediaType.APPLICATION_JSON)
+	public predictUrlListResponse fun3(predictUrlListRequest  req) throws IOException{
+		if(req.getLabelList()==null){
+			List<Integer> list=new ArrayList<Integer>();
+			for (String str : req.getUrlList()) {
+				list.add(1);
+			}
+			req.setLabelList(list);
+		}
+		predictUrlListResponse response=new predictUrlListResponse();
+		response.setUrlListResponseList(new ArrayList<PredictResponse>());
 		Doc doc;StringBuilder sb;
+		List<Doc> docList=new ArrayList<Doc>();
 		List<List<Double>> vectorListList=new ArrayList<List<Double>>();
 		for (String url  : req.getUrlList()) {
 			doc=new Doc();sb=new StringBuilder();
@@ -72,6 +82,7 @@ public class PredictService {
 			if(TokenStatistics.featureSortedTokenStringList==null||TokenStatistics.featureSortedTokenStringList.size()<1)
 				ContentDeal.generateFeatureTokenStringListFromTable();
 			vectorListList.add(doc.getFeatureVectorList());
+			docList.add(doc);
 		}
 		List<PredictResult> predictResultList= SVMUse.predictBatch(vectorListList,req.getLabelList());
 		int right=0;
@@ -83,5 +94,15 @@ public class PredictService {
 		}
 		double accuracy=(double)(right)/req.getLabelList().size();
 		logger.info("预测的准确性为，"+accuracy);
+		for(int i=0;i<docList.size();i++){
+			doc=docList.get(i);
+			PredictResponse responseSub=new  PredictResponse();
+			responseSub.setTitle(doc.title);
+			responseSub.setResult(predictResultList.get(i).isPositive?"yes":"no");
+			responseSub.setDegree(String.valueOf(predictResultList.get(i).degree));
+			response.getUrlListResponseList().add(responseSub);
+		}
+		return response;
 	}
+
 }

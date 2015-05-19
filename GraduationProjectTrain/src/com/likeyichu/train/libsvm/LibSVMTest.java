@@ -11,7 +11,7 @@ public class LibSVMTest {
         String[] trainArgs = {"-b","1","d:/libsvm/breast-cancer.train.txt","d:/libsvm/breast-cancer.model"};
         svm_train.main(trainArgs); 
         //参数依次是 test_file model_file output_file
-        String[] testArgs = {"-b","1","d:/libsvm/breast-cancer.predict.txt", "d:/libsvm/breast-cancer.model", "d:/libsvm/breast-cancer.predict.result.txt"};
+        String[] testArgs = {"d:/libsvm/breast-cancer.predict.txt", "d:/libsvm/breast-cancer.model", "d:/libsvm/breast-cancer.predict.result.txt"};
         svm_predict.main(testArgs);  
     }  
     //@Test

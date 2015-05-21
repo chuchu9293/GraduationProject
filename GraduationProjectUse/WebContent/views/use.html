@@ -35,7 +35,7 @@
 		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
-				<a class="navbar-brand" href="#">基于SVM的算法实践相关文本判别系统——判别模块</a>
+				<a class="navbar-brand" href="#">基于SVM的程序设计相关文本判别系统——判别模块</a>
 			</div>
 
 			<ul class="nav navbar-nav navbar-right">
@@ -50,19 +50,19 @@
 		您可以&nbsp;
 		<button class="btn btn-primary btn-lg" data-toggle="modal"
 			data-target="#myModal">判断本地网页文件</button>
-			&nbsp;也可以&nbsp;
-			<button class="btn btn-primary btn-lg" data-toggle="modal"
+		&nbsp;也可以&nbsp;
+		<button class="btn btn-primary btn-lg" data-toggle="modal"
 			data-target="#myModal2">判断URL</button>
 	</div>
 	<div ng-app="myApp" ng-controller="appController">
 
-		
+
 		<div>
-		<hr>
+			<hr>
 			<button ng-click='getResultService()'>查看结果</button>
 			<hr>
 		</div>
-		
+
 		<h2>标题</h2>
 		<div id="title">{{doc.title}}</div>
 		<h2>正文内容</h2>
@@ -75,53 +75,57 @@
 		<div id="content">{{doc.result}}</div>
 		<h2>判断结果的准确率</h2>
 		<div id="content">{{doc.degree}}</div>
-	
-	<!-- 模态框（Modal） -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
 
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-body">
-					<form id="myFileForm" action="/GraduationProjectUse/myServlet"
-						method="post" enctype="multipart/form-data">
-						上传文件： <input type="file" name='fileName' />
-					</form>
-				</div>
+		<!-- 模态框（Modal） -->
+		<div class="modal fade" id="myModal" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
 
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">关闭
-					</button>
-					<button type="button" class="btn btn-primary" data-dismiss="modal"
-						onclick="myFileSubmit()">提交文件</button>
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<form id="myFileForm" action="/GraduationProjectUse/myServlet"
+							method="post" enctype="multipart/form-data">
+							上传文件： <input type="file" name='fileName' />
+						</form>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+						</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal"
+							onclick="myFileSubmit()">提交文件</button>
+					</div>
 				</div>
+				<!-- /.modal-content -->
 			</div>
-			<!-- /.modal-content -->
+			<!-- /.modal -->
 		</div>
-		<!-- /.modal -->
-	</div>
-	
-	<div class="modal fade" id="myModal2" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
 
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-body">
-					输入Url：<input type="text" ng-model="predictUrl"></input>
-					
-				</div>
+		<div class="modal fade" id="myModal2" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body">
+						<div class="input-group">
+							<span class="input-group-addon">输入Url：</span> <input
+								class="form-control " type="text" ng-model="predictUrl"></input>
+						</div>
 
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">关闭
-					</button>
-					<button type="button" class="btn btn-primary" data-dismiss="modal"
-						ng-click='predictUrlService(predictUrl)'>提交Url</button>
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+						</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal"
+							ng-click='predictUrlService(predictUrl)'>提交Url</button>
+					</div>
+
+					<!-- /.modal-content -->
 				</div>
+				<!-- /.modal-dialog -->
 			</div>
-			<!-- /.modal-content -->
+			<!-- /.modal -->
 		</div>
-		<!-- /.modal -->
-	</div>
 	</div>
 	<div class="myfooter">
 		&copy;2015&nbsp;<span class="text">yichu</span>

@@ -66,7 +66,7 @@ public class FileUploadServlet extends HttpServlet {
 		items = upload.parseRequest(request);
 		//允许上传多个文件，需要遍历
 		Iterator<FileItem> iter = items.iterator();
-		File uploadedFile = new File("d:/upload.jpg");//不限于jpg，可根据上传文件的名字的后缀来动态确定后缀
+		File uploadedFile = new File("/root/gp/upload.html");//不限于jpg，可根据上传文件的名字的后缀来动态确定后缀
 		while (iter.hasNext()) {
 		    FileItem item = iter.next();
 		    item.getSize();//文件的大小，字节

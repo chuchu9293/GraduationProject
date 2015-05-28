@@ -125,7 +125,7 @@ public class svm_predict {
 		+"options:\n"
 		+"-b probability_estimates: whether to predict probability estimates, 0 or 1 (default 0); one-class SVM not supported yet\n"
 		+"-q : quiet mode (no outputs)\n");
-		System.exit(1);
+		//System.exit(1);
 	}
 
 	public static void main(String argv[]) throws IOException

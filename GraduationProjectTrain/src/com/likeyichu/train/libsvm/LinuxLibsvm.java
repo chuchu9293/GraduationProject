@@ -19,12 +19,12 @@ public class LinuxLibsvm {
 
 	public static PredictResult predict() throws IOException {
 		// 参数依次是 test_file model_file output_file
-		String[] testArgs = { "-b", "1", "~/libsvm/gp.predict.txt",
-				"d:/libsvm/gp.model", "~/libsvm/gp.predict.result.txt" };
+		String[] testArgs = { "-b", "1", "/root/libsvm/gp.predict.txt",
+				"/root/libsvm/gp.model", "/root/libsvm/gp.predict.result.txt" };
 		svm_predict.main(testArgs);
 		PredictResult pr = new PredictResult();
 		Scanner scanner = new Scanner(new File(
-				"~/libsvm/gp.predict.result.txt"));
+				"/root/libsvm/gp.predict.result.txt"));
 		/*
 		 * 预测结果的形式 labels 1 -1 1.0 0.8527222772187009 0.14727772278129886
 		 */

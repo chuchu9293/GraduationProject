@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" metadata-complete="true" version="3.1">
+  <display-name>GraduationProjectCollect</display-name>
+  <listener>
+	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+  <listener>
+    <listener-class>
+      org.apache.commons.fileupload.servlet.FileCleanerCleanup
+    </listener-class>
+  </listener>
+  <filter>
+    <description>ajax请求webService时允许跨域</description>
+    <filter-name>WebServiceFilter</filter-name>
+    <filter-class>com.likeyichu.webservice.WebServiceFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>WebServiceFilter</filter-name>
+    <url-pattern>/webService/*</url-pattern>
+  </filter-mapping>
+  <servlet>
+    <servlet-name>jerseyws</servlet-name>
+    <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+    <init-param>
+      <param-name>javax.ws.rs.Application</param-name>
+      <param-value>com.likeyichu.webservice.App</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>jerseyws</servlet-name>
+    <url-pattern>/webService/*</url-pattern>
+  </servlet-mapping>
+  
+   <servlet>
+    <servlet-name>FileUploadServlet</servlet-name>
+    <servlet-class>com.likeyichu.servlet.FileUploadServlet</servlet-class>
+    </servlet>
+     <servlet-mapping>
+    <servlet-name>FileUploadServlet</servlet-name>
+    <url-pattern>/myServlet/*</url-pattern>
+  </servlet-mapping>
+    
+</web-app>

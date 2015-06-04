@@ -1,0 +1,17 @@
+/*页脚*/
+.myfooter{
+	position:static;
+	margin-top: 1em;
+	bottom:0em;
+	border-top-style:dotted;
+	border-top-width:0.2em;
+	text-align:center;
+	}
+/*派生选择器*/
+div .text{
+	font-family:Verdana;
+	color:rgb(255,0,128);
+}
+h2{
+	color:rgb(0,0,255);
+}
